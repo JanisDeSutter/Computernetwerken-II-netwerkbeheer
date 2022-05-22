@@ -140,14 +140,12 @@
 
 2. **Stel een packet flow diagram op, waar één client in een netwerk een DHCP adres aanvraagt, maar waar er twee DHCP servers in het netwerk voorkomen. Leg aan de hand hiervan de werking van DHCP uit.**
 
-![img](https://lh6.googleusercontent.com/kJa5nV44E-NiDLsp4Xpp7m3vOmKRNPBYdYd-wIaFjiOOf4l5KB96ekQncEeRyyFEs554gBz3xQYaNPyf9ekkMw5yT8KlUKjrISF7AkxUYLQdHkJ-RFNVR7j9nt27Smm0HODnSY6BcKk0F_vt6w)
-
-
-
->  De PC stuurt een DHCP-DISCOVER bericht uit op het netwerk. Dit is een broadcastbericht, wat betekent dat iedereen binnen het netwerk het bericht zal ontvangen.Beide servers ontvangen het DHCP-DISCOVER bericht waarna beide servers een DHCP-OFFER bericht sturen (als ze nog beschikbare IP adressen hebben om uit te delen). Dit bericht wordt in unicast formaat uitgestuurd, wat wil zeggen dat het bericht naar één iemand wordt gestuurd. Dit betekent dat de PC 2 DHCP-OFFER unicast berichten zal ontvangen. 
+>  De PC stuurt een **DHCP-DISCOVER** bericht uit op het netwerk. Dit is een broadcastbericht, wat betekent dat iedereen binnen het netwerk het bericht zal ontvangen.Beide servers ontvangen het DHCP-DISCOVER bericht waarna beide servers een **DHCP-OFFER** bericht sturen (als ze nog beschikbare IP adressen hebben om uit te delen). Dit bericht wordt in unicast formaat uitgestuurd, wat wil zeggen dat het bericht naar één iemand wordt gestuurd. Dit betekent dat de PC 2 DHCP-OFFER unicast berichten zal ontvangen. 
 >
-> De PC kiest zelf aan welke server die een DHCP-REQUEST (unicast) bericht die zal uitsturen, vaak is dat de server waarvan de PC het eerst een DHCP-OFFER bericht van heeft gekregen. De PC stuurt een DHCP-REQUEST bericht uit met de vraag om dat IP-adres te verkrijgen.
-> De DHCP-server zal antwoorden met een DHCP-ACKNOWLEDGEMENT bericht waarna de computer voor een leasetijd (meestal 24 uur) dat IP-adres toegeëigend krijgt.
+>  De PC kiest zelf aan welke server die een **DHCP-REQUEST** (unicast) bericht die zal uitsturen, vaak is dat de server waarvan de PC het eerst een DHCP-OFFER bericht van heeft gekregen. De PC stuurt een DHCP-REQUEST bericht uit met de vraag om dat IP-adres te verkrijgen.
+>  De DHCP-server zal antwoorden met een **DHCP-ACKNOWLEDGEMENT** bericht waarna de computer voor een leasetijd (meestal 24 uur) dat IP-adres toegeëigend krijgt.
+
+![img](https://lh6.googleusercontent.com/kJa5nV44E-NiDLsp4Xpp7m3vOmKRNPBYdYd-wIaFjiOOf4l5KB96ekQncEeRyyFEs554gBz3xQYaNPyf9ekkMw5yT8KlUKjrISF7AkxUYLQdHkJ-RFNVR7j9nt27Smm0HODnSY6BcKk0F_vt6w)
 
 
 
@@ -166,9 +164,10 @@
 > SDN (Software-Defined Networking)
 >
 > Het is een benadering van netwerkbeheer die dynamische, programmatisch efficiënte netwerkconfiguratie mogelijk maakt om de netwerkprestaties en -security te verbeteren, waardoor het meer lijkt op cloud computing dan op traditioneel netwerkbeheer.Het voorziet abstracties om op basis daarvan routing applicaties te schrijven.
-> OpenFlow is de pionier binnen dit concept. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plane.
+> OpenFlow is de pionier binnen dit concept. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plan
 >
-> ![img](https://lh5.googleusercontent.com/XBHHpHALovtr2H-ecTyBdoWv2qUnzmTeTpQ6N7vHZWVm8UcTGjFx0lsP3Ainu6XgGru18bGfwW6WErgctdWJHG1jgy3zOskEjN0FpMtm0p4yx9KHmf2EJdWGoakjDXLYeWFaGNeqSolVdy7svQ)
+
+![img](https://lh5.googleusercontent.com/XBHHpHALovtr2H-ecTyBdoWv2qUnzmTeTpQ6N7vHZWVm8UcTGjFx0lsP3Ainu6XgGru18bGfwW6WErgctdWJHG1jgy3zOskEjN0FpMtm0p4yx9KHmf2EJdWGoakjDXLYeWFaGNeqSolVdy7svQ)
 
 
 
@@ -179,20 +178,21 @@
 **1. Wat is een AS ? Geef 3 types (waarom is het belangrijk een onderscheid te maken).**
 
 >  AS = **Autonomous System**
-> Een AS is een groep routers/netwerk elementen binnen dezelfde administratieve controle (beheerd of eigen van hetzelfde bedrijf, universiteit of provider).
+>  Een AS is een groep routers/netwerk elementen binnen dezelfde administratieve controle (beheerd of eigen van hetzelfde bedrijf, universiteit of provider).
 >
-> **3 types:**
+>  **3 types:**
 >
-> - Stub AS: Heeft slechts 1 connectie naar de rest van het internet
-> - Transit AS: verbindt 2 of meerdere AS’sen.
-> - Multi connected AS: heeft via meerdere verbindingen toegang tot andere AS’sen maar fungeert niet als transit.
-> - ![img](https://lh3.googleusercontent.com/EoezP7FO7bGHEykisYL8ELQ2YdlVH02F_Yf2iu1DIDCEidXpw30NyLpDVtssgmpUI7p5NtaV7kOI5qFe5KXgNMUjoJlxSCEcMA8i4zrqWuNkD5X3jA8a1zFcjtzr8htTlKbwHe9VVI_VRIGjDg)
+>  - Stub AS: Heeft slechts 1 connectie naar de rest van het internet
+>  - Transit AS: verbindt 2 of meerdere AS’sen.
+>  - Multi connected AS: heeft via meerdere verbindingen toegang tot andere AS’sen maar fungeert niet als transit
+
+![img](https://lh3.googleusercontent.com/EoezP7FO7bGHEykisYL8ELQ2YdlVH02F_Yf2iu1DIDCEidXpw30NyLpDVtssgmpUI7p5NtaV7kOI5qFe5KXgNMUjoJlxSCEcMA8i4zrqWuNkD5X3jA8a1zFcjtzr8htTlKbwHe9VVI_VRIGjDg)
 
 **2. Bespreek het verschil tussen intra- en inter-AS routering.**
 
 > **intra-AS** routering: binnen AS (via **OSPF** of **RIP**)
->
-> **![img](https://lh5.googleusercontent.com/3hyOQp_hw3JVmQZz6M6VEU_8deVmbm9F6FPcAVUajJbPw-gzdQURokG-oL4pDAiHhfzpm0YYcAnEBsKNcJcbEiLvkTHsiTlfgmmjn1UXLbjdksPmUvHur3CXv3MkbUw8FwsLPDSBYmk-Se6CVg)**
+
+![img](https://lh5.googleusercontent.com/3hyOQp_hw3JVmQZz6M6VEU_8deVmbm9F6FPcAVUajJbPw-gzdQURokG-oL4pDAiHhfzpm0YYcAnEBsKNcJcbEiLvkTHsiTlfgmmjn1UXLbjdksPmUvHur3CXv3MkbUw8FwsLPDSBYmk-Se6CVg)**
 >
 > **inter-AS** routering: tussen AS’sen (via **BGP**)
 
@@ -207,13 +207,14 @@
 > **distance vector routing:** disctance vector = vector met gewichten die aangeven hoe ver een gegeven router zich bevindt (bepaald door bandbreedte). Afstand wordt bepaald door Bellman-Ford algoritme.
 > Iedere router ontvangt disctance vector van buren (bv elke 30 seconden). Ook update hij zijn eigen locale distance vector.
 >
-> **![img](https://lh5.googleusercontent.com/2PhqlEdbts0km3WiKjTGpcJ5xt-ShXNU0GrGHJmaZ0hog1QgB4nngs6bg0G-xfSPM_0UOxmd8NhLoxWQKdHBrYV0fn-Xn4i5tZFQ4uf7t1qctO-dkkKuagO3tlF-Kn2K04KJ-EQybKhk4MSHAQ)**
+
+![img](https://lh5.googleusercontent.com/2PhqlEdbts0km3WiKjTGpcJ5xt-ShXNU0GrGHJmaZ0hog1QgB4nngs6bg0G-xfSPM_0UOxmd8NhLoxWQKdHBrYV0fn-Xn4i5tZFQ4uf7t1qctO-dkkKuagO3tlF-Kn2K04KJ-EQybKhk4MSHAQ)**
 >
 > 
->
-> **link-state routing:**
+>**link-state routing:**
 > Houdt afstand tot bepaalde router bij aan de hand van een link state database. Maakt gebruik van advertisements om link states te verspreiden.Maakt gebruik van OSPF om het shortest path te bepalen.
-> ![img](https://lh4.googleusercontent.com/GjkDpefkPTyMTGttAzBr8SHhYF9BtgBK82Muk2R70E_-HL59ONX1y-1_OC6xlAe3Olaub99jd61DRAg8PNAiTZORvca4Kp5IkFP924CIiQBSm5ZLxJCcfaT0TPW2MwZZnXDtvhI4Rclq1JS9_A)
+
+![img](https://lh4.googleusercontent.com/GjkDpefkPTyMTGttAzBr8SHhYF9BtgBK82Muk2R70E_-HL59ONX1y-1_OC6xlAe3Olaub99jd61DRAg8PNAiTZORvca4Kp5IkFP924CIiQBSm5ZLxJCcfaT0TPW2MwZZnXDtvhI4Rclq1JS9_A)
 
 
 
@@ -252,7 +253,9 @@
 >  - Security (authenticatie)
 >  - multipath : verschillende same-cost paths toegestaan
 >  - uni- & multicast support
->  - hiërarchische OSPF binnen grote domeinen![img](https://lh4.googleusercontent.com/yAgc1zCsd5oKkJZu4M8_oGEOs17smJ8kKgCj2JCkaJgCm8TTHWi3S480EOOahGNa4bODmKmCvyq-zGom2Pq_1A3rjs0w3SGzcx8va9T0pDZIbg7erGzu6oxFdr9avSQRKzoOB6ufMEicPZg-4w)
+>  - hiërarchische OSPF binnen grote domeinen
+
+![img](https://lh4.googleusercontent.com/yAgc1zCsd5oKkJZu4M8_oGEOs17smJ8kKgCj2JCkaJgCm8TTHWi3S480EOOahGNa4bODmKmCvyq-zGom2Pq_1A3rjs0w3SGzcx8va9T0pDZIbg7erGzu6oxFdr9avSQRKzoOB6ufMEicPZg-4w)
 
   
 
@@ -290,7 +293,8 @@
 >
 > Zo zal AS 54 in onderstaand voorbeeld zijn informatie niet delen met AS 134 omdat AS 134 geen betalende klant is.
 >
-> ![img](https://lh3.googleusercontent.com/XgPPDsWLWg4rhOKRRd3EfeCyi7PnWRKjD0fhIdRVk5gBg_qz8Lm5_6TLOiEO5mYrcRT80GYKelRQohfNGsxEcIAYKjnOr8TNb_n8QMG-hRfDjxzUrQESvlcXNaFjvqufrOMGlxbEvVhmF2Iu7A)
+
+![img](https://lh3.googleusercontent.com/XgPPDsWLWg4rhOKRRd3EfeCyi7PnWRKjD0fhIdRVk5gBg_qz8Lm5_6TLOiEO5mYrcRT80GYKelRQohfNGsxEcIAYKjnOr8TNb_n8QMG-hRfDjxzUrQESvlcXNaFjvqufrOMGlxbEvVhmF2Iu7A)
 
 
 
@@ -341,7 +345,8 @@
 >= Virtuele netwerk resource approach bovenop standaard servers. (= software switch en routers)
 >
 >Wordt bijvoorbeeld gebruikt in frameworks zoals mininet.
->![img](https://lh3.googleusercontent.com/Jti1Kp21Omjb4_g6KvsphnC6vNAW5ydsq1pwceSYSMHN3fuUWmhXCmo_jZohubAmsTEhdTl7yBMejS56EJOCLoa7W7XSnLBDgYL7bWzPcnvNsaKA0KKoT0YT_DtC6gUg0ZbTF_qygafHF0dF5g)
+
+![img](https://lh3.googleusercontent.com/Jti1Kp21Omjb4_g6KvsphnC6vNAW5ydsq1pwceSYSMHN3fuUWmhXCmo_jZohubAmsTEhdTl7yBMejS56EJOCLoa7W7XSnLBDgYL7bWzPcnvNsaKA0KKoT0YT_DtC6gUg0ZbTF_qygafHF0dF5g)
 
 ## Hoofdstuk 6
 
@@ -406,7 +411,8 @@ Het grootste voordeel voor het gebruik van switches is dat er geen configuratie 
 > Een firewall zal het binnenkomend verkeer filteren.
 >
 > **Stateless packet filter:** Beoordeelt elk pakket. maakt gebruik van opgestelde regels bijvoorbeeld source en destination address en zal op basis daarvan het pakket doorlaten of droppen. Dit gebeurt via een ACL (access control list)
-> ![img](https://lh3.googleusercontent.com/l2vHu_P0E0AYZyqpVB1n6iKW_TKsajLD5OHxCaOS61wPE36hQhAx0Oflamm_mfPiJ_tBaXm3Uo_awL_UgKM3A4HW1oCACXYe6o-fFVSU4MgbiEFoHjwP1yohR14QAD_385PklWHN-Bq-I1uQgw)
+
+![img](https://lh3.googleusercontent.com/l2vHu_P0E0AYZyqpVB1n6iKW_TKsajLD5OHxCaOS61wPE36hQhAx0Oflamm_mfPiJ_tBaXm3Uo_awL_UgKM3A4HW1oCACXYe6o-fFVSU4MgbiEFoHjwP1yohR14QAD_385PklWHN-Bq-I1uQgw)
 >
 > 
 >
@@ -414,8 +420,9 @@ Het grootste voordeel voor het gebruik van switches is dat er geen configuratie 
 >
 > **Stateful packet filter:** Monitort tcp verbindingen en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag).
 >
-> ![img](https://lh6.googleusercontent.com/tnKZKhwIlB8stlM5KdAPXLKrerpSlr1MJDvJs2qvjQ_v_FacWjUjbuC3b9OD-u6lpAWtfGiSFzra6AB9pD7GGFSb7T15DcWCkUYCV3Yzoa8VHvb_mUkGyxxK5V7L5IrF046688AbPMRLWAf60w)
-> **Application gateways: **Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer.
+
+![img](https://lh6.googleusercontent.com/tnKZKhwIlB8stlM5KdAPXLKrerpSlr1MJDvJs2qvjQ_v_FacWjUjbuC3b9OD-u6lpAWtfGiSFzra6AB9pD7GGFSb7T15DcWCkUYCV3Yzoa8VHvb_mUkGyxxK5V7L5IrF046688AbPMRLWAf60w)
+> **Application gateways:** Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer.
 
 
 
@@ -456,8 +463,8 @@ Het grootste voordeel voor het gebruik van switches is dat er geen configuratie 
 
 >Een **solicited-node adres** is een **multicast adres** waartoe een aantal adressen toebehoren. Het wordt gevormd door de laatste 24 bits van het IPv6 te nemen en er een prefix ff02::1:ffXX:XXXX/104 van te maken. **Hierdoor kunnen multicast-adressen gestuurd worden zonder alle link-local adressen aangeroepen moeten worden. Zo wordt een broadcast vermeden.** 
 >Wanneer host A het link-local adres van host B wilt weten om bijvoorbeeld zijn ARP-table van IPv6 adressen te vervolledigen, moet host A een Neighbor Solicitation (NS) pakket uitsturen. Een NS pakket vraagt aan de ontvanger (host B in dit geval) om zijn link-layer adres in een Neighbor Advertisement (NA) pakket terug te sturen. Om een NS pakket uit te sturen gaat de afzender (host A) zijn link-layer als source adres opgeven en de solicited-node adres al destination opgeven. Host B ontvangt de NS-pakket en stuurt op zijn beurt een unicast NA-pakket terug naar host A met als source zijn link-layer adres en als destination adres, de link-layer adres van host A. Doordat host A een NS-pakket uitgestuurd heeft, kan de ARP-table van host B ook aangevuld worden met de link-layer adres van host A.
->
->![img](https://lh4.googleusercontent.com/y4UN9dRuewkpjNeCMQUabbsCranAuwVFQgaf8e9HnIk-zjNSqkLbaV6IJf3jQYv8iWECIPXHaSvNcCeZZHJ01TMCHFrbHBXP_FULv1Rzh6xicHLo8omaRJGjRGyYJ5iWPFD2UJ4nBo5YSJjiUw)
+
+![img](https://lh4.googleusercontent.com/y4UN9dRuewkpjNeCMQUabbsCranAuwVFQgaf8e9HnIk-zjNSqkLbaV6IJf3jQYv8iWECIPXHaSvNcCeZZHJ01TMCHFrbHBXP_FULv1Rzh6xicHLo8omaRJGjRGyYJ5iWPFD2UJ4nBo5YSJjiUw)
 
 **5. Leg uit: IPv6 DAD.**
 
@@ -476,6 +483,7 @@ Het grootste voordeel voor het gebruik van switches is dat er geen configuratie 
 >**Stap 1**: **Genereer een link-local adres** 
 >
 >In deze stap genereren de hosts een link-local adres door het EUI-64 formaat te gebruiken, gebaseerd op hun MAC-adres. Nadien melden deze groepen zich aan in twee multicast groepen, namelijk de “all-nodes” (ff02::01) en de solicited-node, die overeenkomt met hun link-local adres dat juist gegenereerd was. Tenslotte passen de hosts Duplicated Address Detection (DAD) toe om na te gaan dat hun IPv6 niet elders voorkomt. Dit wordt bereikt door Neighbor Solicitation (NS) pakketten uit te sturen. Als de host geen antwoord krijgt, weet de host dat die de enige is met dat IP waardoor de status van het adres van tentative naar preferred wordt geupdate.
+>
 >**Stap 2: Stateless autoconfiguration:**
 >
 >De host zendt een Router Solicitation (RS) uit naar “all-routers” multicast groep (ff02::2). De router antwoordt hierop met een RA naar hun hosts in het subnet. De RA bevat een lijst met netwerkprefixen en andere parameters zoals de default router lifetime, MTU en Hop Limit. Een RA kan ook in unicastformaat worden gestuurd maar dit wordt zelden gedaan. Met de gegevens die de host krijgt op basis van een RA-pakket, wordt hun IP-adres geconfigureerd. Hierbij wordt opnieuw DAD toegepast om te zien of de host dat IPv6 adres kan gebruiken.
@@ -483,6 +491,19 @@ Het grootste voordeel voor het gebruik van switches is dat er geen configuratie 
 >**Stap 3: DHCP-stateless:** 
 >
 >Voor deze stap moet een stateless autoconfiguration gebeurd zijn. De host contacteert een een DHCP-server voor additionele configuratie zoals het verkrijgen van DNS en NTP. Hiervoor moet de “O”-vlag (Other) worden ingesteld op 1. Het DHCPv6-protocol wordt gebruikt. De default gateway moet verkregen worden via de stateless autoconfiguration. 
->**Stap 4: DHCP-stateful**
+>
+>**Stap 3: DHCP-stateful**
 >
 >Deze stap is hetzelfde als bij DHCP-stateless maar hierbij heeft de host nog geen IPv6 adres verkregen. Hiervoor moet de “M”-vlag (Managed) op 1 staan zodat de DHCP-server ook IPv6 adressen kan uitdelen en werkt zoals een DHCPv4-server. Het DHCPv6-protocol wordt gebruikt. 
+
+
+
+**8. De overgang van IPv4 van IPv6 wordt georganiseerd in DNS records. Leg uit hoe dit mechanisme werkt.**
+
+>Binnen de DNS records wordt een nieuw type geïntroduceerd namelijk het **AAAA** record (I**PV6 resource record**). Ook moet er een extra (IPV6) reverse zone toegevoegd worden om Reverse dns lookup te doen werken voor IPV6. 
+>Bij een overgangsfase wordt een **dual stack resolver** gebruikt die zowel kan omgaan met A en AAAA records.
+>
+>Wanneer beide hosts over een IPv6 adres beschikken, wordt er geopteerd om IPv6 te gebruiken in plaats van IPv4. Wanneer een DNS-records worden bevraagd, wordt als eerst de IPv6 record getoond en pas daarna de IPv4. De operating systemen gebruiken standaard het eerste record dat ze binnenkrijgen waardoor er een hogere kans is dat IPv6 gebruikt wordt.
+>
+
+![img](https://lh3.googleusercontent.com/RjGKa4m5KUBT7Frizo3e-_R8qquWtCU05dEI5Cf8ZgNP5PNA1ZbZGpN6HWfQE8ejMWGE_7UuND5y_s9R02-KpOdW7BtrbxuO6ihgONFdF037l5e-MaYkE3P9k5_oz20ZmHahL14gnQOnA7hkeg)
