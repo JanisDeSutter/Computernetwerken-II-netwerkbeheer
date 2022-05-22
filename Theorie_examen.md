@@ -166,7 +166,9 @@
 > SDN (Software-Defined Networking)
 >
 > Het is een benadering van netwerkbeheer die dynamische, programmatisch efficiënte netwerkconfiguratie mogelijk maakt om de netwerkprestaties en -security te verbeteren, waardoor het meer lijkt op cloud computing dan op traditioneel netwerkbeheer.Het voorziet abstracties om op basis daarvan routing applicaties te schrijven.
-> OpenFlow is de pionier binnen dit concept.. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plane.![img](https://lh5.googleusercontent.com/XBHHpHALovtr2H-ecTyBdoWv2qUnzmTeTpQ6N7vHZWVm8UcTGjFx0lsP3Ainu6XgGru18bGfwW6WErgctdWJHG1jgy3zOskEjN0FpMtm0p4yx9KHmf2EJdWGoakjDXLYeWFaGNeqSolVdy7svQ)
+> OpenFlow is de pionier binnen dit concept. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plane.
+>
+> ![img](https://lh5.googleusercontent.com/XBHHpHALovtr2H-ecTyBdoWv2qUnzmTeTpQ6N7vHZWVm8UcTGjFx0lsP3Ainu6XgGru18bGfwW6WErgctdWJHG1jgy3zOskEjN0FpMtm0p4yx9KHmf2EJdWGoakjDXLYeWFaGNeqSolVdy7svQ)
 
 
 
@@ -314,5 +316,173 @@
 
 **11. Hoe kan Ansible ingezet worden voor netwerkautomatisering, en wat zijn de nodige basiscomponenten en protocollen van Ansible?**
 
->Ansible bevat playbooks die configuratie bevatten voor desbetreffende hosts die in de playbook gedefinieerd zijn, die op hun eigen een verwijzing zijn naar de hostfile. Zo kan de configuratie worden ingesteld op honderden hosts tegelijkertijd.
->Het laat toe om frequent wijzigingen door te voeren op veel instanties door één playbook te runnen.
+>Ansible staat in voor network Devops. 
+>
+>Het zorgt er voor dat er op een automatische manier netwerk tests en configuratie uitgevoerd kunnen worden (=Network as code).
+>Ansible kan zowel Lokaal of remote (in de cloud) uitgevoerd worden.
+>
+>**basiscomponenten**:
+>
+>* Inventory: Lijst van systemen (hosts) in de infrastructuur die geautomatiseerd uitgevoerd worden.playbooks: 
+>* Ansible bevat playbooks die configuratie bevatten voor desbetreffende hosts die in de playbook gedefinieerd zijn, die op hun eigen een verwijzing zijn naar de hostfile. Zo kan de configuratie worden ingesteld op honderden hosts tegelijkertijd. Ook kunnen er plays (taken) gedefinieerd worden binnen de playbooks. Deze geven aan welke taak uitgevoerd moet worden door welke host.
+>* key features:
+>  - agent-less: geen agents nodig op target devices (bv netwerk elementen).
+>  - templates (bv jinja2)
+>  - modules: 
+>    - declaratieve staat: gewenste eindtoestand definiëren.
+>    - idempotent:resultaat van uitvoer altijd het zelfde
+
+
+
+**12. Wat is netwerkvirtualisatie en waarom wordt het gebruikt?**
+
+>virtualisatie: bepaalde functie wordt ontkoppeld van de specifieke hardware waarop ze gebruikt wordt.
+>
+>= Virtuele netwerk resource approach bovenop standaard servers. (= software switch en routers)
+>
+>Wordt bijvoorbeeld gebruikt in frameworks zoals mininet.
+>![img](https://lh3.googleusercontent.com/Jti1Kp21Omjb4_g6KvsphnC6vNAW5ydsq1pwceSYSMHN3fuUWmhXCmo_jZohubAmsTEhdTl7yBMejS56EJOCLoa7W7XSnLBDgYL7bWzPcnvNsaKA0KKoT0YT_DtC6gUg0ZbTF_qygafHF0dF5g)
+
+## Hoofdstuk 6
+
+**1. Hoe werkt een Ethernet switch.**
+
+> Een Ethernet Switch is een Layer 2 “plug and play” device. Het doel van de switch is om het netwerkpakket naar de juiste host te versturen. Hiervoor wordt een switchtabel automatisch opgesteld waarbij de switch leert welke hosts bereikt kunnen worden via welke poort. Op die manier wordt het verkeer gericht gestuurd.
+
+**2. Hoe worden de switchtabellen ingevuld ? En hoe worden ze gebruikt ?**
+
+>De switchtabellen worden opgevuld op basis van het verkeer dat de switch ontvangt. Als de switchtabel een pakket ontvangt, wordt het MAC-adres van de afzender met de respectievelijke poort opgeslagen in de tabel (als het de eerste keer is dat deze host een pakket verstuurd).
+>Vervolgens kijkt de switch of die een entry van de ontvanger in de tabel heeft. Als dit het geval is, wordt het verkeer enkel naar de poort uitgestuurd. Wanneer de switch niet weet via welke poort de ontvanger bereikbaar is, wordt het pakket uitgestuurd naar alle poorten, behalve die van de afzender = een broadcast bericht wordt uitgestuurd.
+
+**3. Bespreek STP en geef een voorbeeld.**
+
+> STP = Spanning Tree ProtocolIs het mechanisme dat ervoor zorgt dat er geen loopholes tussen de switches ontstaan in het netwerk. Als dit mechanisme er niet zou zijn, dan zou het netwerkverkeer maar blijven ronddwalen en toenemen totdat er geen verkeer meer verstuurd kan worden omdat er teveel congestion is.Bij STP worden switches onderverdeeld op basis van een prioriteit. De switch met de hoogste prioriteit is de rootswitch. Alle poorten zijn designated poorten. De andere switches kijken via welke poort ze de rootswitch het snelst kunnen bereiken. Deze poorten worden rootpoorten. Andere poorten die een verbinding met een andere switch hebben, worden alternate (alternatieve) poorten genoemd. Deze kunnen geblokkeerd worden als er een loophole kan ontstaan.
+
+**4. Wat is een VLAN ? Bespreek de relatie tussen VLANs en subnetten.**
+
+> VLAN = Virtuele Local Area NetworkVLAN’s delen het network logisch op in plaats van fysiek. Dit laat toe om hosts die fysiek verspreid zijn, tot hetzelfde subnet te laten behoren = ze behoren tot hetzelfde VLAN. Hiervoor zijn er wel switches nodig om dit te kunnen configureren. Op poorten waar een endhost verbonden is, moet deze in access port modus staan en moet het toegewezen worden aan een VLAN. Op poorten waar verkeer van meerdere VLANS moet passeren (e.g. de verbinding gaat van een switch naar een router of van switch naar switch red.), moet deze op trunk modus ingesteld worden en moeten de VLANS toegelaten worden die verkeer over deze poort mogen laten gaan.
+
+**5. Geef een aantal voor- en nadelen van switches (versus routers).**
+
+Het grootste voordeel voor het gebruik van switches is dat er geen configuratie nodig is wanneer het toestel verbonden is met het netwerk. De switch configureert zichzelf in functie van het netwerk (e.g. de switchtabellen worden automatisch ingevuld) Het principe van “plug and play” is hier van toepassing. Dit is meteen ook het nadeel van de router, deze moet geconfigureerd worden wanneer die verbonden is met het netwerk om te kunnen functioneren.
+
+## Hoofdstuk 7
+
+
+
+**1. Bespreek de voornaamste verschillen tussen draadloze netwerken en bekabelde netwerken (bv. welke problemen kunnen optreden in draadloze netwerken, die je niet hebt in bekabelde netwerken)?**
+
+>Bij draadloze netwerken kan interferentie optreden wanneer twee of meerdere hosts, channels (frequentie waarop de hosts communiceren met een access point) gebruiken die elkaar overlappen. Dit probleem doet zich niet voor bij bekabelde netwerken.
+>Het draadloos signaal verzwakt ook wanneer het door muren moet passeren (hiding terminal problem). Hierdoor ervaart de eindgebruiker een verzwakt signaal waardoor die een trager internetsnelheid ervaart.
+
+**2. Hoe werkt het IEEE 802.11 MAC protocol?**
+
+![img](https://lh5.googleusercontent.com/w1TRNj1D-YGFyH8uea7cMDom3e6Tbk8cbzohNAlrBzPBnCQUCHNNQQ_LFxD7x-8tr3F73JP61HW5x_Lkajt3xe0z5CEKJr5aPi0u3hCSSHDEPOY7oybh9gJ_3xEipO66zsms8zRVpExM44Jw1A)
+
+> Het 802.11 MAC protocol wordt gebruikt om gegevensframes te verzenden/ontvangen tussen een station (vb. een Access Point (AP)) en een draadloos toestel. Aangezien een station met meerdere toestellen kan communiceren over een gemeenschappelijk kanaal, moet er een medium-accessprotocol gebruikt worden om collision zoveel mogelijk te vermijden. 802.11 MAC protocol gebruikt CSMA/CA of Carrier-sense Multiple Access (CSMA) met Collision Avoidance (CA). Het 802.11 MAC protocol heeft echter geen collisiondetectie. Bijgevolg kan het een verzending ook niet stoppen wanneer een collision optreedt. 
+>
+> Met CSMA/CA gaan de stations onmiddellijk een backoff waarde instellen dat random gekozen wordt als ze horen dat een gemeenschappelijk kanaal in gebruik is. In de hoop dat deze waarden verschillen zal een station eerder kunnen beginnen met het verzenden van een frame. Wanneer bij de “verliezende” station de backoff verlopen is, zal deze ‘zien’ dat het kanaal in gebruik is en zal de “verliezende” station wachten met het verzenden van de frame totdat de “winnende” station klaar is met het verzenden van zijn frame.
+>
+> Volgende stappen worden ondernomen als een station een frame wilt verzenden:
+>
+> - Als een station hoort dat een kanaal niet in gebruik is, verzendt het een frame na een korte tijd, namelijk de distributed inter-frame space (DIS)
+> - Anders kiest een station een willekeurige backoff. Als het kanaal wel in gebruik is, wordt de waarde niet verlaagd
+> - Als de teller van de DIFS of de backoff op 0 komt, start het station met het verzenden van de frame
+> - Als het station een bevestiging ontvangt, weet het dat de frame intact is ontvangen. Als er nog andere frames verzonden moeten worden of het station heeft nooit een bevestiging gekregen, wordt er vanaf stap 2 weer herhaald. De backoff krijgt een andere waarde uit een groter interval als de frame niet toegekomen is
+
+**3. Bespreek de werking van de adresvelden bij IEEE 802.11 netwerken.**
+
+>Het bevat 3 adresvelden. 
+>
+>- Het eerste adresveld is het MAC-adres van het draadloze station waarvoor de frame bestemd is. Als een mobiel toestel of een Access Point (AP) de bestemming is, wordt die MAC-adres in het eerste adresveld ingevuld.
+>- Het tweede adresveld is het MAC-adres van de afzender.
+>- Het derde adresveld bevat het MAC-adres van de subinterface van de router waarmee de AP verbonden is. Dit is de AP waarmee de afzender in verbinding staat. De reden dat het derde adresveld bestaat is om het mogelijk te maken om een 802.11 frame te vertalen naar een ethernet frame (802.3) en omgekeerd. De AP is verbonden met een ethernetverbinding met een router om verkeer naar een ander subnet te sturen. Anders gezegd is het derde adresveld het gateway MAC-adres van het subnet waarin de AP zich bevindt.
+>  Wanneer een pakket van één station naar een ander station in een ander subnet gestuurd moet worden zal de afzender bij het eerste adresframe het MAC-adres van de AP plaatsen. Het tweede adresveld bevat de MAC-adres van de afzender (een station). Het derde adresveld is het MAC adres van de router voor dat subnet. Eens het pakket op de AP toekomt wordt het frame vertaald naar ethernetframe. Het eerste adresveld wordt hier weggelaten zodat er enkel nog een source en destination adresveld bestaat. Deze gaat dan via klassieke routering en met de nodige ARP-requests, verstuurd worden naar het juiste subnet waarbij de AP van het ander subnet een 802.11 frame weer opbouwt voor de ontvanger. Hier zal het eerste MAC-adres het adres van de ontvanger zijn. Het tweede adresveld, is de MAC-adres van de AP in het “nieuwe” subnet en het derde adresveld is het MAC-adres van de routerinterface van het subnet waarin de AP waarmee de ontvanger verbonden zit.
+
+## Hoofdstuk 8
+
+**1. Bespreek pakketfiltering “packet firewall: stateless en stateful” en toepassingsgateway “application gateway”**
+
+> Een firewall zal het binnenkomend verkeer filteren.
+>
+> **Stateless packet filter:** Beoordeelt elk pakket. maakt gebruik van opgestelde regels bijvoorbeeld source en destination address en zal op basis daarvan het pakket doorlaten of droppen. Dit gebeurt via een ACL (access control list)
+> ![img](https://lh3.googleusercontent.com/l2vHu_P0E0AYZyqpVB1n6iKW_TKsajLD5OHxCaOS61wPE36hQhAx0Oflamm_mfPiJ_tBaXm3Uo_awL_UgKM3A4HW1oCACXYe6o-fFVSU4MgbiEFoHjwP1yohR14QAD_385PklWHN-Bq-I1uQgw)
+>
+> 
+>
+> 
+>
+> **Stateful packet filter:** Monitort tcp verbindingen en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag).
+>
+> ![img](https://lh6.googleusercontent.com/tnKZKhwIlB8stlM5KdAPXLKrerpSlr1MJDvJs2qvjQ_v_FacWjUjbuC3b9OD-u6lpAWtfGiSFzra6AB9pD7GGFSb7T15DcWCkUYCV3Yzoa8VHvb_mUkGyxxK5V7L5IrF046688AbPMRLWAf60w)
+> **Application gateways: **Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer.
+
+
+
+## Hoofdstuk 4* : IPv6
+
+> De slides van dit hoofdstuk bevatten tekstuele verduidelijking in de notes; deze notes vullen
+> de slides aangezien er geen IPv6 hoofdstuk opgenomen is in het boek van Kurose-Ross.
+
+**1. Bespreek de verschillende types adressen bij IPv6 (“Address Type”).**
+
+> **Unicast**: is hetzelfde als bij ipv4 het is een 1-op-1 verbinding
+>
+> **Multicast**: probeert het inefficiënte broadcast te vervangen en is 1-op-many. Je moet je inschrijven op multicast adressen waardoor je erop bereikbaar bent. Zo heb je groepen voor alle routers in het netwerk, …
+>
+> **Anycast**: wordt niet heel veel gebruikt omdat het niet zoveel nut heeft maar is 1 op dichtste. Het stuurt nog altijd naar 1 bepaalde groep zoals multicast maar kiest er deze keer 1 uit (meestal de dichtste) dit kan gebruikt worden voor mirror servers. Er is wel een grondig probleem mee, je blijft altijd verbonden ermee, wanneer een dichtere node online komt zal deze niet automatisch verwisselen.
+
+![img](https://lh6.googleusercontent.com/rupNFRh-JQYFZcNTzjYoSQYB6NRSQCzIZx3YZH2QmnF91CAGZidF-pCksPuEb63GGeokhSjT07KCMzqk7dAKBYbpTT7Z3W1jPJKeO3roSUiG76c_aFwfSgtwuCPXtEmlXIzz1nAOg6tLQMST7g)
+
+**2. Leg uit: fe80::/10, 2000::/3, fc00::/7. Waarvoor worden deze verschillende scopes gebruikt?**
+
+> **Fe80::/10** Deze adressen zijn niet routeerbaar en kan enkel gebruikt worden om te communiceren met andere hosts binnen hetzelfde subnet.
+>
+> **2000::/3** Deze adressen zijn routeerbaar en wordt gebruikt om verkeer uit te sturen/te ontvangen buiten het lokaal subnet. (altijd ISP nodig)
+>
+> **Fc00::/7** is ULA scope, wordt gebruikt wanneer je over een router wil buiten je eigen netwerk maar je geen isp hebt en geen verbinding met internet. 
+
+**3. Wat zijn de belangrijkste verschillen tussen een IPv4 en IPv6 header ? Waarom heeft men die verschillen ingevoerd ?**
+
+> **Vaste lengte:** 40bytes met 8 fixed lenght velden tov 20bytes IPV4 header.hierdoor kan er sneller geprocessed worden, er moet niet meer gekeken worden hoe lang het frame eigenlijk is
+>
+> **Geen checksum:** niet meer nodig om altijd een checksum te berekenen omdat de velden fixed length zijn.
+>
+> **Extra headers en geen fragmentatie:** in de extra headers field (extension header)  worden de nieuwe headers aan geplakt zo moet je niet zoeken naar de gefragmenteerde headers (opzich wel nog mogelijk) maar niet meer gebruikt.
+>
+> **Flow label:** hiermee kan je pakketten groeperen (maar wordt eigenlijk niet echt gebruikt)
+
+**4. Geef een voorbeeld van IPv6 adresresolutie en leg uit wat “solicited-node address” is.**
+
+>Een **solicited-node adres** is een **multicast adres** waartoe een aantal adressen toebehoren. Het wordt gevormd door de laatste 24 bits van het IPv6 te nemen en er een prefix ff02::1:ffXX:XXXX/104 van te maken. **Hierdoor kunnen multicast-adressen gestuurd worden zonder alle link-local adressen aangeroepen moeten worden. Zo wordt een broadcast vermeden.** 
+>Wanneer host A het link-local adres van host B wilt weten om bijvoorbeeld zijn ARP-table van IPv6 adressen te vervolledigen, moet host A een Neighbor Solicitation (NS) pakket uitsturen. Een NS pakket vraagt aan de ontvanger (host B in dit geval) om zijn link-layer adres in een Neighbor Advertisement (NA) pakket terug te sturen. Om een NS pakket uit te sturen gaat de afzender (host A) zijn link-layer als source adres opgeven en de solicited-node adres al destination opgeven. Host B ontvangt de NS-pakket en stuurt op zijn beurt een unicast NA-pakket terug naar host A met als source zijn link-layer adres en als destination adres, de link-layer adres van host A. Doordat host A een NS-pakket uitgestuurd heeft, kan de ARP-table van host B ook aangevuld worden met de link-layer adres van host A.
+>
+>![img](https://lh4.googleusercontent.com/y4UN9dRuewkpjNeCMQUabbsCranAuwVFQgaf8e9HnIk-zjNSqkLbaV6IJf3jQYv8iWECIPXHaSvNcCeZZHJ01TMCHFrbHBXP_FULv1Rzh6xicHLo8omaRJGjRGyYJ5iWPFD2UJ4nBo5YSJjiUw)
+
+**5. Leg uit: IPv6 DAD.**
+
+>DAD = **Duplicate Address Detection**.Wordt gebruikt in een IPv6 netwerk om na te gaan of het gegenereerde adres al niet in gebruik genomen is. Bij IPv6 bestaan er veel mechanismen om de host zelf een IPv6 link local en global adres te laten genereren.
+>
+>Wanneer een host zijn adres heeft aangemaakt stuurt hij een **Neighbor Solicitation (NS)** om te controleren of het adres dat hij net maakte niet al in gebruik is, het adres wordt op **tentative** gezet, dit wil zeggen dat het niet echt gebruikt mag worden. ook in de request headers wordt het source adres leeg gelaten. Als de NS geen antwoord krijgt wil dit zeggen dat het adres niet in gebruik is door iemand en wordt het op **preferred** gezet en kan het dus gebruikt worden.Wanneer er echter wel een antwoord komt zal het adres geweigerd worden en zal er een nieuw gemaakt worden. De echte eigenaar van dit adres moet dit natuurlijk antwoorden naar onze host maar hij kan dit niet doen omdat het adres ervan niet gekend is (omdat het tentative is) dit is in heel het ipv6 de enige uitzondering om het broadcast multicast adres te gebruiken (ff02::1) 
+
+**6. Een IPv6 node met meerdere interfaces (e.g. een router), gebruikt intern steeds een zone index. Leg uit waarom.**
+
+> Wanneer de router bijvoorbeeld een ICMP bericht krijgt van een host die een andere host wilt bereiken via een link local adres, moet de router kunnen achterhalen van welk subnet deze ICMP-aanvraag is uitgestuurd. Bij link local adressen kunnen hosts, verspreid over verschillende subnetten, hetzelfde IP hebben of een IP hebben uit dezelfde range. Door te werken met een zone index kan de router weten vanuit welk subnet die aanvraag uitgestuurd is zodat het de aanvraag kan doorsturen naar de juiste host in het juiste subnet.
+
+**7. Bespreek de verschillen de autoconfiguratiestappen van IPv6.**
+
+>Om nodes in het netwerk automatisch link-local adressen te genereren zijn er 3 stappen mogelijk om een IPv6-netwerk automatisch te configureren. Als eerste stap worden link-local adressen gegenereerd door de hosts.Als tweede stap wordt een router aangesproken die de informatie geeft om als host een IPv6 adres te bekomen. Op basis wat er in stap twee beslist is, kan er in stap 3 beroep worden gedaan op een DHCP-server.
+>
+>**Stap 1**: **Genereer een link-local adres** 
+>
+>In deze stap genereren de hosts een link-local adres door het EUI-64 formaat te gebruiken, gebaseerd op hun MAC-adres. Nadien melden deze groepen zich aan in twee multicast groepen, namelijk de “all-nodes” (ff02::01) en de solicited-node, die overeenkomt met hun link-local adres dat juist gegenereerd was. Tenslotte passen de hosts Duplicated Address Detection (DAD) toe om na te gaan dat hun IPv6 niet elders voorkomt. Dit wordt bereikt door Neighbor Solicitation (NS) pakketten uit te sturen. Als de host geen antwoord krijgt, weet de host dat die de enige is met dat IP waardoor de status van het adres van tentative naar preferred wordt geupdate.
+>**Stap 2: Stateless autoconfiguration:**
+>
+>De host zendt een Router Solicitation (RS) uit naar “all-routers” multicast groep (ff02::2). De router antwoordt hierop met een RA naar hun hosts in het subnet. De RA bevat een lijst met netwerkprefixen en andere parameters zoals de default router lifetime, MTU en Hop Limit. Een RA kan ook in unicastformaat worden gestuurd maar dit wordt zelden gedaan. Met de gegevens die de host krijgt op basis van een RA-pakket, wordt hun IP-adres geconfigureerd. Hierbij wordt opnieuw DAD toegepast om te zien of de host dat IPv6 adres kan gebruiken.
+>De routers sturen op periodieke tijdsintervallen Router Advertisement (RA) pakketten door zodat het netwerk automatisch up to date blijft.
+>**Stap 3: DHCP-stateless:** 
+>
+>Voor deze stap moet een stateless autoconfiguration gebeurd zijn. De host contacteert een een DHCP-server voor additionele configuratie zoals het verkrijgen van DNS en NTP. Hiervoor moet de “O”-vlag (Other) worden ingesteld op 1. Het DHCPv6-protocol wordt gebruikt. De default gateway moet verkregen worden via de stateless autoconfiguration. 
+>**Stap 4: DHCP-stateful**
+>
+>Deze stap is hetzelfde als bij DHCP-stateless maar hierbij heeft de host nog geen IPv6 adres verkregen. Hiervoor moet de “M”-vlag (Managed) op 1 staan zodat de DHCP-server ook IPv6 adressen kan uitdelen en werkt zoals een DHCPv4-server. Het DHCPv6-protocol wordt gebruikt. 
