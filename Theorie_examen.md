@@ -126,9 +126,9 @@
 
 1. **Leg NAT uit aan de hand van een voorbeeld. Bespreek de voor en nadelen van NAT.**
 
-> NAT = Network Address Translation
+> NAT = **Network Address Translation**
 >
-> NAT (lange naam NATv4) laat toe om IPv4 adressen te vertalen naar een ander IPv4 adres. Deze vertaling kan zijn een private IPv4 adres naar een publiek IPv4 adres. Maar ook even goed een vertaling van een private naar een private IPv4 adres. De vertaling hoeft niet een 1-op-1 vertaling te zijn. Een range van IPv4 adressen (vb. 192.168.0.0/24) kan verwijzen naar één (publiek) IPv4 adres.
+> NAT (lange naam NATv4) laat toe om IPv4 adressen te vertalen naar een ander IPv4 adres. Deze vertaling kan zijn een **private IPv4 adres naar een publiek IPv4 adres**. Maar ook even goed een vertaling van een private naar een private IPv4 adres. De vertaling hoeft niet een 1-op-1 vertaling te zijn. Een range van IPv4 adressen (vb. 192.168.0.0/24) kan verwijzen naar één (publiek) IPv4 adres.
 >
 > Het werkt aan de hand van de poorten op een router. Dat laatste komt vooral voor in Azië waarbij de ISP’s een dubbele NAT-vertaling doen om ervoor te zorgen dat er genoeg IPv4 adressen beschikbaar zijn voor de consumenten. Zo wordt één publiek IPv4 adres vertaald naar een privaat adres dat zich in de 10.0.0.0/8 range bevindt. Nadien wordt dat adres uit de 10.0.0.0/8 range opnieuw vertaald naar een IP uit een andere range (vb 192.168.0.0/24). Dit IP is toegekend aan een endhost. Op die manier kunnen minstens 16 000 verschillende particulieren en bedrijven gemapped worden naar één publiek IPv4 adres.
 >
@@ -241,7 +241,7 @@
 
 
 
-> OSPF = Open Shortest Path First
+> OSPF = **Open Shortest Path First**
 
 >- zowel IPV4 als IPV6
 
@@ -250,10 +250,10 @@
 >- maakt gebruik van advertisements om link states te verspreiden Dit doet hij over volledige AS adhv flooding. OSPF stuurt direct een IP pakket in plaats van TCP of UDP
 
 >- advanced features:
->  - Security (authenticatie)
->  - multipath : verschillende same-cost paths toegestaan
->  - uni- & multicast support
->  - hiërarchische OSPF binnen grote domeinen
+>   - Security (authenticatie)
+>   - multipath : verschillende same-cost paths toegestaan
+>   - uni- & multicast support
+>   - hiërarchische OSPF binnen grote domeinen
 
 ![img](https://lh4.googleusercontent.com/yAgc1zCsd5oKkJZu4M8_oGEOs17smJ8kKgCj2JCkaJgCm8TTHWi3S480EOOahGNa4bODmKmCvyq-zGom2Pq_1A3rjs0w3SGzcx8va9T0pDZIbg7erGzu6oxFdr9avSQRKzoOB6ufMEicPZg-4w)
 
@@ -278,7 +278,7 @@
 
 **7. Wat is een AS-PATH ? Wat is een NEXT-HOP ?**
 
-> Het zijn BGP-attributes**.**
+> Het zijn BGP-attributes.
 >
 > - AS-PATH: path vector, welke zijn de tusseliggende AS’sen?
 > - NEXT-HOP: Interface waar AS-path begint. Hops zijn geen routers maar AS’en.
@@ -287,7 +287,7 @@
 
 
 
-**8. Wat is policy based routing in BGP ?****Geef een voorbeeld.**
+**8. Wat is policy based routing in BGP ? Geef een voorbeeld.**
 
 >  Border routers gaan informatie gaan delen met andere router aan de hand van bepaalde voorwaarden (policies). 
 >
@@ -300,7 +300,7 @@
 
 **9. Wat is ICMP ? Geef een voorbeeld bij het gebruik in een redirect en traceroute.**
 
-> ICMP = Internet Control Message Protocol. Het wordt bijvoorbeeld gebruikt om te achterhalen of een host bereikbaar is. Hiervoor kan het ping- of traceroute-commando worden gebruikt. Sommige firewalls blokkeren ICMP berichten om te voorkomen dat hackers hier misbruik van maken om bijvoorbeeld een DDOS-aanval mee uit te voeren.
+> ICMP = **Internet Control Message Protocol**. Het wordt bijvoorbeeld gebruikt om te achterhalen of een host bereikbaar is. Hiervoor kan het ping- of traceroute-commando worden gebruikt. Sommige firewalls blokkeren ICMP berichten om te voorkomen dat hackers hier misbruik van maken om bijvoorbeeld een DDOS-aanval mee uit te voeren.
 
 > **Redirect** staat in voor het detecteren en oplossen van routeringsproblemen. Dit aan de hand van ICMP redirect berichten.(Voorbeeld:..)
 
@@ -308,7 +308,7 @@
 
 **10. Leg de basisprincipes van SNMP uit (wat, waarom, hoe, ...). Verwerk het woord MIB en OID in je antwoord.**
 
->SNMP = Simple Network Message ProtocolHet Object ID (OID) is het ID in de MIB-tree dat een hiërarchische ordening heeft.MIB = Management Information Base
+>SNMP = **Simple Network Message Protocol**. Het Object ID (OID) is het ID in de MIB-tree dat een hiërarchische ordening heeft.MIB = Management Information Base
 >
 >Het Simple Network Message Protocol (SNMP) laat toe om UDP-berichten uit te sturen naar beheerde toestellen zoals routers, switches, servers… om informatie op te vragen of configuratiewijzigingen door te voeren.
 >
