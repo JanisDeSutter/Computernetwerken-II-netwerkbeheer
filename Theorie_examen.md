@@ -682,3 +682,43 @@
 >
 
 ![img](https://lh3.googleusercontent.com/RjGKa4m5KUBT7Frizo3e-_R8qquWtCU05dEI5Cf8ZgNP5PNA1ZbZGpN6HWfQE8ejMWGE_7UuND5y_s9R02-KpOdW7BtrbxuO6ihgONFdF037l5e-MaYkE3P9k5_oz20ZmHahL14gnQOnA7hkeg)
+
+
+
+## Extra info en (gedeeltelijke) oplossingen zelftests
+
+### Zelftest 1
+
+1. > Hoe kan de command line tool "dig" de trace van tussenliggende DNS servers bekomen: a.d.h.v. een "iteratieve DNS query" of a.d.h.v. een "recursieve DNS query"?
+
+    **iteratieve DNS query**
+
+   
+
+2. > Wat zijn DNS glue records?
+
+   - DNS glue records zijn DNS RRs zodat verschillende DNS domeinen tot een zone kunnen worden samengevoegd. 
+   - Een DNS glue record is een A type DNS RR dat het IP adres van een name server geeft voor een lagergelegen domein in de DNS hiërarchie.
+   - DNS glue records voor gegeven onderliggend domein A zijn niet nodig wanneer een name server van een onderliggend domein A tot een ander domein B behoort.
+
+   
+
+3. > Hoe komt het dat als we 2 DNS queries na elkaar uit voeren (met x aantal minuten tussen) dat de 2de query veel sneller wordt uitgevoerd?
+
+   Dit komt door caching (Caching nameservers). De TTL van het atwoord op de query bepaalt hoe lang het gecached moet worden. Wanneer de TTL velopen is zal de query opnieuw langer duren door het resolven.
+
+   
+
+4. > Welke uitspraken zijn correct over het DNS registratie proces.
+
+   - Technisch gezien heeft het DNS systeem geen registratiesysteem nodig, aangezien alle DNS servers geen rechtstreekse link hebben met de registry.
+   - Een TLD DNS server van bv. .com hoeft niet noodzakelijk een entry toe te voegen voor een onderliggend domein zoals facebook.com om DNS queries bij hun bestemming terecht te laten komen. Veronderstel lege caches en zonder statische entries in andere servers/hosts.
+   - De reden waarom je geen Belgische domeinnamen in het ICANN lookup portaal of via de WHOIS tool vindt is omdat de privacy-gerelateerde wetgeving dat niet meer toelaat.
+
+   
+
+5. > Welke van de volgende uitspraken zijn correct m.b.t. DNS server configuratie?
+
+   - Root zone hints datafiles worden automatisch gedownload.
+   - In het SOA record op een name server kun je terugvinden wat het email adres is van de netwerkbeheerder van dat domein. 
+   - Met zone transfers wordt bedoeld dat zonefiles naar een nieuwe eigenaar verhuizen. 
