@@ -46,6 +46,179 @@
 >   \- Sectie 7.3 Draadloze LANs
 > - **Hoofdstuk8**
 >   \- Sectie 8.9 Firewalling en IDS
+>
+> *Het merendeel van de leerstof is in tekstvorm in het handboek opgenomen. Voor sommige onderdelen gaan de slides/clips echter dieper in op bepaalde zaken dan het boek. Deze worden aangeduid met (*****) in het onderstaande overzicht.*
+>
+> # Week 1
+>
+> INTRODUCTIELES
+>
+> - Sectie 1.5 Protocollagen en servicemodel
+> - Sectie 2.1 Principes van netwerkapplicaties
+> - Sectie 3.2 Multiplexen en demultiplexen
+> - Sectie 6.7 Een dag in het leven van ...
+>
+> ZELFSTUDIE
+>
+> - Sectie 2.4 DNS 
+>   - Kennisclip: Resolver
+>   - Kennisclip: DNS registratie
+>   - Kennisclip: Reverse DNS (*)
+>   - Kennisclip: DNS server (*)
+> - Sectie 2.5 Peer-to-peer bestandsdistributie
+>   - Kennisclip: What is een DHT? (*)
+>   - Kennisclip: Hoe werkt een DHT? (*)
+>
+> VRIJBLIJVENDE ZELFTEST WEEK 1 DNS EN P2P
+>
+> # **Week 2**
+>
+> ZELFSTUDIE
+>
+> Sectie 4.3.3 IPv4 Dynamic Host Configuration Protocol
+>
+> - Kennisclip: DHCP
+> - Kennisclip: DHCP renewal & relay (*)
+> - Kennisclip: DHCP server (*)
+>
+> Sectie 4.3.4 Network Address Translation Protocol
+>
+> - Kennisclip: Network Address Translation
+>
+> Sectie 5.6 Internet Control Message Protocol (ICMP)
+>
+> - Kennisclip: Internet Control Message Protocol (*)
+>
+> VRIJBLIJVENDE ZELFTEST WEEK 2 IP, DHCP, NAT en ICMP
+>
+> # **Week 3**
+>
+> ZELFSTUDIE
+>
+> Huiswerkoefening voor te bereiden voor response college (zie Inhoud -> Week 3 -> Oefening).
+>
+> Sectie 6.4 Local-Areanetwerken met switches (herhaling, behalve *)
+>
+> - Kennisclip: ARP
+> - Kennisclip: ARP cache management (*)
+> - Kennisclip: Ethernet switching
+> - Kennisclip: VLAN
+>
+> VRIJBLIJVENDE ZELFTEST WEEK 3 LINK LAYER
+>
+> # **Week 4**
+>
+> ZELFSTUDIE
+>
+> Sectie 7.1 - 7.2 Inleiding/Draadloze links en netwerkkenmerken
+>
+> - Kennisclip: Introductie tot draadloze netwerken
+>
+> Sectie 7.3 Wifi: 802.11 draadloze LANs
+>
+> - Kennisclip: Draadloze LANs
+>
+> VRIJBLIJVENDE ZELFTEST WEEK 4 WIRELESS NETWORKS
+>
+> # **Week 5**
+>
+> ZELFSTUDIE
+>
+> Sectie 5.7 Netwerkbeheer en SNMP
+>
+> - Kennisclip: Netwerk management
+> - Kennisclip: SNMP
+> - Kennisclip: Netwerk Automatisering en Ansible
+>
+> # **Week 6 **
+>
+> ## H.4* Netwerklaag IPv6
+>
+> ZELFSTUDIE
+>
+> IPv6 - pagina's 1 tot 31 (leerstof)
+>
+> - Kennisclip: IPv6 address space & notatie
+> - Kennisclip: IPv6 address scope
+> - Kennisclip: IPv6 ULA scope
+> - Kennisclip: IPv6 address type
+>
+> IPv6 - pagina's 32 tot 35 (achtergrond)
+>
+> - Kennisclip: IPv6 header
+>
+> # **Week 7 **
+>
+> ## H. 4* Netwerklaag IPv6
+>
+> ZELFSTUDIE
+>
+> IPv6 - ICMPv6 - pagina's 36 tot 59 (leerstof)
+>
+> - Kennisclip: IPv6 address resolution
+> - Kennisclip: IPv6 Duplicate Address Detection (DAD)
+> - Kennisclip: IPv6 StateLess Address AutoConfiguration (SLAAC)
+> - Kennisclip: IPV6 - DHCPv6
+>
+> IPv6 - Transition to IPv6 - pagina's 60 tot 73 (achtergrond)
+>
+> - Kennisclip: IPv6 dual stack v6/v4
+> - Kennisclip: IPv6 (only) to an IPv4 network
+>
+> # **Week 9 **
+>
+> ## H.5 Netwerklaag - Intra AS-routing
+>
+> ZELFSTUDIE
+>
+> Sectie 5.1 Introductie
+>
+> - Kennisclip: Wat is routing
+>
+> Sectie 5.2 Routeringsalgoritmen
+>
+> - Kennisclip: Distance vector routing
+>
+> Sectie 5.3 Intra-AS routering: OSPF
+>
+> - Kennisclip: Link-state routing en OSPF
+>
+> Vrijblijvende Zelftest Intra-AS routing
+>
+> # **Week 10 **
+>
+> ## H.5 Netwerklaag - Inter AS-routing
+>
+> Sectie 1.7
+>
+> Sectie 5.4 Routing among the ISPs: BGP
+>
+> - Kennisclip: Structuur van het Internet
+> - Kennisclip: BGP
+>
+> Vrijblijvende zelftest Hoofdstuk 5 Inter-AS routing
+>
+> # **Week 11**
+>
+> ## H. 8 (Netwerk)Beveiliging
+>
+> Sectie 1.6
+>
+> Sectie 8.9 Firewalls & IDS (leerstof)
+>
+> - Kennisclip: Firewall and IDS
+>
+> # **Week 12**
+>
+> ## H.4 en H.5 Netwerklaag
+>
+> Sectie 4.4 Gegeneraliseerde forwarding en SDN
+> Sectie 5.5 Het SDN-controlelevel
+>
+> - Kennisclip: SDN
+> - Kennisclip: Netwerkvirtualisatie
+>
+> 
 
 
 
@@ -308,11 +481,13 @@
 
 **10. Leg de basisprincipes van SNMP uit (wat, waarom, hoe, ...). Verwerk het woord MIB en OID in je antwoord.**
 
->SNMP = **Simple Network Message Protocol**. Het Object ID (OID) is het ID in de MIB-tree dat een hiërarchische ordening heeft.MIB = Management Information Base
+>**SNMP** = Simple Network Message Protocol. Het Object ID (**OID**) is het ID in de MIB-tree dat een hiërarchische ordening heeft.
 >
->Het Simple Network Message Protocol (SNMP) laat toe om UDP-berichten uit te sturen naar beheerde toestellen zoals routers, switches, servers… om informatie op te vragen of configuratiewijzigingen door te voeren.
+>**MIB** = Management Information Base
 >
->De Management Information Base (MIB) wordt gebruikt om informatie bij te houden over de network management data. Om veranderingen in het netwerk door te voeren, moet de managing server SNMP berichten verzenden naar de agenten van de desbetreffende nodes om de wijzigingen te kunnen doorvoeren. Hiervoor moet de Object ID (OID) bij de MIB gekend zijn.
+>Het Simple Network Message Protocol (**SNMP**) laat toe om **UDP-berichten uit te sturen naar beheerde toestellen zoals routers, switches, servers… om informatie op te vragen of configuratiewijzigingen door te voeren.**
+>
+>De Management Information Base (**MIB**) wordt gebruikt om informatie bij te houden over de network management data. Om veranderingen in het netwerk door te voeren, moet de managing server SNMP berichten verzenden naar de agenten van de desbetreffende nodes om de wijzigingen te kunnen doorvoeren. Hiervoor moet de Object ID (**OID**) bij de MIB gekend zijn.
 >
 >De managing server kan ook informatie over de nodes opvragen. Dit moet gebeuren op basis van het OID. Ook hier wordt een SNMP bericht gestuurd. De agent van de node stuurt hierop een antwoord terug. De MIB houdt een hiërarchische boomstructuur bij van de objecten. Elke branche in de boom bevat een naam en getal. Door getallen, scheiden met een “.” op te geven, kom je uit op een OID. 
 
@@ -369,7 +544,7 @@
 
 **5. Geef een aantal voor- en nadelen van switches (versus routers).**
 
-Het grootste voordeel voor het gebruik van switches is dat er geen configuratie nodig is wanneer het toestel verbonden is met het netwerk. De switch configureert zichzelf in functie van het netwerk (e.g. de switchtabellen worden automatisch ingevuld) Het principe van “plug and play” is hier van toepassing. Dit is meteen ook het nadeel van de router, deze moet geconfigureerd worden wanneer die verbonden is met het netwerk om te kunnen functioneren.
+> Het grootste voordeel voor het gebruik van switches is dat er geen configuratie nodig is wanneer het toestel verbonden is met het netwerk. De switch configureert zichzelf in functie van het netwerk (e.g. de switchtabellen worden automatisch ingevuld) Het principe van “plug and play” is hier van toepassing. Dit is meteen ook het nadeel van de router, deze moet geconfigureerd worden wanneer die verbonden is met het netwerk om te kunnen functioneren.
 
 ## Hoofdstuk 7
 
