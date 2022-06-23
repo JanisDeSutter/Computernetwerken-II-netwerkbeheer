@@ -49,7 +49,7 @@
 >
 > *Het merendeel van de leerstof is in tekstvorm in het handboek opgenomen. Voor sommige onderdelen gaan de slides/clips echter dieper in op bepaalde zaken dan het boek. Deze worden aangeduid met (*****) in het onderstaande overzicht.*
 >
-> # Week 1
+> ## Week 1
 >
 > INTRODUCTIELES
 >
@@ -71,7 +71,7 @@
 >
 > VRIJBLIJVENDE ZELFTEST WEEK 1 DNS EN P2P
 >
-> # **Week 2**
+> ## Week 2
 >
 > ZELFSTUDIE
 >
@@ -91,7 +91,7 @@
 >
 > VRIJBLIJVENDE ZELFTEST WEEK 2 IP, DHCP, NAT en ICMP
 >
-> # **Week 3**
+> ## Week 3
 >
 > ZELFSTUDIE
 >
@@ -106,7 +106,7 @@
 >
 > VRIJBLIJVENDE ZELFTEST WEEK 3 LINK LAYER
 >
-> # **Week 4**
+> ## Week 4
 >
 > ZELFSTUDIE
 >
@@ -120,7 +120,7 @@
 >
 > VRIJBLIJVENDE ZELFTEST WEEK 4 WIRELESS NETWORKS
 >
-> # **Week 5**
+> ## Week 5
 >
 > ZELFSTUDIE
 >
@@ -130,9 +130,9 @@
 > - Kennisclip: SNMP
 > - Kennisclip: Netwerk Automatisering en Ansible
 >
-> # **Week 6 **
+> ## Week 6 
 >
-> ## H.4* Netwerklaag IPv6
+> ### H.4* Netwerklaag IPv6
 >
 > ZELFSTUDIE
 >
@@ -147,9 +147,9 @@
 >
 > - Kennisclip: IPv6 header
 >
-> # **Week 7 **
+> ## Week 7 
 >
-> ## H. 4* Netwerklaag IPv6
+> ### H. 4* Netwerklaag IPv6
 >
 > ZELFSTUDIE
 >
@@ -165,9 +165,9 @@
 > - Kennisclip: IPv6 dual stack v6/v4
 > - Kennisclip: IPv6 (only) to an IPv4 network
 >
-> # **Week 9 **
+> ## Week 9 
 >
-> ## H.5 Netwerklaag - Intra AS-routing
+> ### H.5 Netwerklaag - Intra AS-routing
 >
 > ZELFSTUDIE
 >
@@ -185,9 +185,9 @@
 >
 > Vrijblijvende Zelftest Intra-AS routing
 >
-> # **Week 10 **
+> ## Week 10
 >
-> ## H.5 Netwerklaag - Inter AS-routing
+> ### H.5 Netwerklaag - Inter AS-routing
 >
 > Sectie 1.7
 >
@@ -198,9 +198,9 @@
 >
 > Vrijblijvende zelftest Hoofdstuk 5 Inter-AS routing
 >
-> # **Week 11**
+> ## Week 11
 >
-> ## H. 8 (Netwerk)Beveiliging
+> ### H. 8 (Netwerk)Beveiliging
 >
 > Sectie 1.6
 >
@@ -208,9 +208,9 @@
 >
 > - Kennisclip: Firewall and IDS
 >
-> # **Week 12**
+> ## Week 12
 >
-> ## H.4 en H.5 Netwerklaag
+> ### H.4 en H.5 Netwerklaag
 >
 > Sectie 4.4 Gegeneraliseerde forwarding en SDN
 > Sectie 5.5 Het SDN-controlelevel
