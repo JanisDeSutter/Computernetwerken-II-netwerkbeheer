@@ -574,9 +574,9 @@
 
 >Het bevat 3 adresvelden. 
 >
->- Het eerste adresveld is het MAC-adres van het draadloze station waarvoor de frame bestemd is. Als een mobiel toestel of een Access Point (AP) de bestemming is, wordt die MAC-adres in het eerste adresveld ingevuld.
->- Het tweede adresveld is het MAC-adres van de afzender.
->- Het derde adresveld bevat het MAC-adres van de subinterface van de router waarmee de AP verbonden is. Dit is de AP waarmee de afzender in verbinding staat. De reden dat het derde adresveld bestaat is om het mogelijk te maken om een 802.11 frame te vertalen naar een ethernet frame (802.3) en omgekeerd. De AP is verbonden met een ethernetverbinding met een router om verkeer naar een ander subnet te sturen. Anders gezegd is het derde adresveld het gateway MAC-adres van het subnet waarin de AP zich bevindt.
+>- Het eerste adresveld is het **MAC-adres** van het draadloze station waarvoor de frame bestemd is **(destination)**. Als een mobiel toestel of een Access Point (AP) de bestemming is, wordt die MAC-adres in het eerste adresveld ingevuld.
+>- Het tweede adresveld is het **MAC-adres** van de afzender **(source)**.
+>- Het derde adresveld bevat het **MAC-adres** van de **subinterface van de router waarmee de AP verbonden is**. Dit is de AP waarmee de afzender in verbinding staat. De reden dat het derde adresveld bestaat is om het mogelijk te maken om een 802.11 frame te vertalen naar een ethernet frame (802.3) en omgekeerd. De AP is verbonden met een ethernetverbinding met een router om verkeer naar een ander subnet te sturen. Anders gezegd is het derde adresveld het gateway MAC-adres van het subnet waarin de AP zich bevindt.
 >  Wanneer een pakket van één station naar een ander station in een ander subnet gestuurd moet worden zal de afzender bij het eerste adresframe het MAC-adres van de AP plaatsen. Het tweede adresveld bevat de MAC-adres van de afzender (een station). Het derde adresveld is het MAC adres van de router voor dat subnet. Eens het pakket op de AP toekomt wordt het frame vertaald naar ethernetframe. Het eerste adresveld wordt hier weggelaten zodat er enkel nog een source en destination adresveld bestaat. Deze gaat dan via klassieke routering en met de nodige ARP-requests, verstuurd worden naar het juiste subnet waarbij de AP van het ander subnet een 802.11 frame weer opbouwt voor de ontvanger. Hier zal het eerste MAC-adres het adres van de ontvanger zijn. Het tweede adresveld, is de MAC-adres van de AP in het “nieuwe” subnet en het derde adresveld is het MAC-adres van de routerinterface van het subnet waarin de AP waarmee de ontvanger verbonden zit.
 
 ## Hoofdstuk 8
@@ -719,6 +719,233 @@
 
 5. > Welke van de volgende uitspraken zijn correct m.b.t. DNS server configuratie?
 
-   - Root zone hints datafiles worden automatisch gedownload.
    - In het SOA record op een name server kun je terugvinden wat het email adres is van de netwerkbeheerder van dat domein. 
-   - Met zone transfers wordt bedoeld dat zonefiles naar een nieuwe eigenaar verhuizen. 
+
+
+
+6. > Wanneer we "dig yahoo.com" uitvoeren, vinden we enkele type A records met IP adressen voor de gegeven domeinnaam (bv. 74.6.143.25).  Welke uitspraken m.b.t. reverse DNS op een ontvangen IP adres zijn correct?
+
+   - "dig -x <IPadres>" kan gebruikt worden om de domeinnaam te achterhalen
+
+### Zelftest 2
+
+
+
+1. > Welke uitspraken zijn correct m.b.t. DHCP?
+
+   - DHCP kan gebruikt worden om de default gateway te configureren wanneer nieuwe toestellen zich aanmelden op het netwerk.
+   - Nog voor de lease time verloopt van een via DHCP ontvangen IP adres, kan de betrokken host een DHCP request uitsturen om een nieuw IP adres.
+   - Een DHCP Offer en DHCP Acknowledge bericht kan ook via unicast bij de aanvrager van het IP adres terechtkomen. 
+
+
+
+2. > Welke uitspraken zijn correct over Network Address Translation?
+
+   - Hosts in een netwerk achter een NAT toestel/router maken gebruik van adressen uit de private range.
+   - Het is onmogelijk om 90 000 hosts terzelfdertijd te laten communiceren naar het publieke Internet wanneer die hosts allen zich achter een NAT toestel bevinden. 
+
+
+
+3. > Welke uitspraken over de traceroute tool zijn correct?
+
+   - traceroute verstuurt meerdere pakketten van de bron naar de bestemming om de route te kunnen achterhalen tussen beide.
+   - Routers op het pad van bron naar bestemming sturen een ICMP bericht van het type "Destination unreachable" terug naar de bron.
+
+
+
+4. > Welke uitspraken zijn correct over het ICMP redirect mechanisme?
+
+   - ICMP redirect wordt enkel gebruikt tussen routers of hosts verbonden via hetzelfde subnet (link layer). 
+   - ICMP redirect bericht moedigt aan dat een router of host de juiste gateway configureert in zijn routing tabel voor een gegeven bestemming. 
+
+
+
+### Zelftest 3
+
+
+
+1. > Welk van de volgende uitpraken met betrekking tot ARP zijn correct?
+
+   - Alle hosts op dezelfde link ontvangen een ARP request uitgestuurd door een van de hosts.
+   - Een ARP response wordt gebroadcast zodat alle andere nodes ook weten wat het MAC adres is horend bij een gevraagd IP adres
+
+2. > Geef aan welk van de volgende uitspraken correct is met betrekking tot het Spanning Tree Protocol (STP).
+
+   - STP zorgt ervoor dat je netwerktopologie beperkt wordt, waardoor je eigenlijk capaciteit verliest.
+   - STP zorgt ervoor dat je niet noodzakelijk het kortste pad gebruikt in je topologie.
+
+
+
+### Zelftest 4
+
+**Response College: Wireless Networking**
+
+In een bedrade ethernet context kunnen we collision detection doen. In draadloze netwerken niet want dat is fysich onmogelijk. In de plaats maakt men gebruik van collision avoidance.
+
+
+
+1. > Koppel oorzaak en tekortkomingen
+
+
+
+> treedt op als verschillende bronnen verzenden in dezelfde frequentie range
+
+**interferentie**. Bestaat niet in bedrade omgeving. Verschillende toestellen maken gebruik van gedeeld spectrum. Dit zorgt voor interferentieproblemen.
+
+
+
+> de attenuatie van het elektromagnetisch signaal is hiervan de oorzaak wanneer het signaal reist door de lucht/materie
+
+**padverlies** (ook path loss of padverzwakking)
+
+
+
+> het gevolg hiervan is een vaag signaal bij de ontvanger doordat delen van de elektromagnetische golf van objecten reflecteren 
+
+**voortplaning via verschillende paden**. Draadloze signalen verspreiden zich doorheen de lucht. Ze kunnen weerkaatst worden door objecten in de omgeving.
+
+
+
+2. > 
+
+![Imgur](https://imgur.com/2FcC9LU.png)
+
+
+
+Dankzij reflectie neem het signaal verschillende paden. 
+
+![Imgur](https://imgur.com/ZwD3Ozz.png)
+
+Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontvangen. Daardoor zorgt men er voor dat het signaal op verschillende punten ontvangen kan worden.
+
+
+
+3. >Stel dat een mobiele node steeds verder verwijderd wordt van een basisstation. Welke acties kunnen dan ondernomen worden om de kans dat een verzonden frame correct arriveert te vergroten?
+
+   - Het transmissievermogen verhogen (SNR (signal to noise ratio) verhogen)
+   - Een lagere bitoverdrachtssnelheid hanteren
+
+   
+
+   ![Imgur](https://imgur.com/ZBLMSjb.png)
+
+4. > Welke uitspraken zijn correct over beacon frames?
+
+   
+
+   Een acces point stuurt slechts op 1 kanaal beaconframes door.
+
+   
+
+   - Beacon frames laten toe draadloze stations toe om APs te detecteren die zich in de buurt bevinden
+
+   ![Imgur](https://imgur.com/kCDxveV.png)
+
+   
+
+5. > Stel dat je in een villa (zonder buren) beschikt over een snelle bedrade 200 Mbps internettoegang (downstream) van je ISP. Je kan ook beschikken over 3 IEEE 802.11g Access Points die je in je huis kan opstellen.
+   >
+   > Welke 3 kanalen (in oplopende volgorde) zou je als netwerkbeheerder gebruiken?  
+
+   ![Imgur](https://imgur.com/FxyFzVW.png)
+
+   12-14 niet gebruikt in VS want wordt gebruikt voor radio en tv doeleinden.
+
+   Ideale toestand: geen overlappende spectra (= geen interferrentie) :
+
+   **Kanaal 1,6 & 11.**
+
+   
+
+   **Iedeaal scenario in bureau:**
+
+   15-20% overlap zodat niemand zonder bereik valt. De overlap is enkel geografisch want de channels gebruiken een veschillend spectra. Er is dus geen verlies in bandbreedte.
+
+   ![Imgur](https://imgur.com/eVXphs1.png)
+
+   **Breedband calculatie:**
+
+   
+
+   **mW**: bepaalt vermogen en dus ook de range van de AP's.
+
+   
+
+   ![img](https://i.imgur.com/PmyGolI.png)
+
+   > Hoeveel (downstream) bandbreedte in Mbps kun je bijgevolg maximaal gebruiken (met alle toestellen samen) ?  Je mag afgaan op de gegevens in het handboek in tabel 7.1.
+
+   
+
+   Ieder AP kan max 54mbps voor zichzelf aanbieden. Dus 3x54 = **162 Mbps**
+
+
+
+6. > Stel dat een draadloos station zich van de ene naar de andere cell binnen hetzelfde subnet verplaatst. Stel dat de APs met een switch verbonden zijn. Welke uitspraken zijn correct?
+
+   
+
+   - Meteen nadat de node zich heeft geassocieerd aan het nieuwe AP, is de node hoogstwaarschijnlijk niet bereikbaar voor de buitenwereld. *(Dit is afhankelijk van hoe de swtich zijn forwardingstabel tussen de verschillende acces points heeft geconfigureerd)*
+
+   
+
+   - De node die is verhuisd naar het nieuwe AP, kan een random MAC frame genereren om meteen bereikbaar te worden.
+
+7. > Stel dat 2 ISPs wifitoegang in een bepaald café aanbieden. Hierbij heeft elke ISP een eigen access point (AP1 en AP2) en een eigen IP adresblok gebruikt en beide APs maken gebruik van kanaal 11. Je mag veronderstellen dat de uplink van beide APs voldoende is om 100 gebruikers terzelfdertijd van internet access te voorzien.
+
+   
+
+   Ze hebben een verschillend SSID.
+
+   **SSID** staat voor **Service Set Identifier** (naam van het draadloos netwerk) bv. "TelenetWiFree".
+
+   
+
+   - Beide APs hebben ander MAC adres
+   - Elk frame dat verstuurd wordt door een station dat geassocieerd is met AP1, zal ook ontvangen worden door AP2 (Ze maken allebei gebruik van het kanaal 11 dus luisteren op het zelfde spectrum. Adhv het BSSID van het access point kan er onderscheid gemaakt worden in het verkeer)
+
+   
+
+   stel dat er 10 gebrukers in het cafe zitten zou het niet nodig zijn om hun te verdelen over de 2 access points aangezien de acces points toch gebruik maken van het zelfde kanaal. Mocht er een limiet zijn van 5 personen zijn bij de uplink van de ISP's zouden ze zich wel beter verdelen.
+
+
+
+8. > Stel dat een 802.11b station zo geconfigureerd is dat het altijd het kanaal reserveert met de RTS/CTS uitwisseling. Stel dat dit station ineens 1000 bytes gegevens wil verzenden en alle andere stations op hetzelfde moment niets willen verzenden. Neem een transmissiesnelheid van 11 Mbps aan. 
+
+   > Bereken, als functie van SIFS en DIFS, zonder rekening te houden met de propagation delay en in de veronderstelling dat er geen bitfouten optreden, de tijd die nodig is om het frame te verzenden en de bevestiging te ontvangen (in microsec). Je mag veronderstellen dat frame een zonder data 32 bytes lang is.
+
+   32bytes=256bits (1byte=8bit)
+
+   **820**µs (micro seconden)
+
+   
+
+   ![Imgur](https://imgur.com/NtrYJRc.png)
+
+9. >Gegeven onderstaande netwerk dat bestaat uit 2 access points AP1 en AP2 verbonden via een switch s1, die op zijn beurt verbinding maakt met de rest van het netwerk via router r1.
+   >
+   >Op draadloze links wordt gebruik gemaakt van de IEEE 802.11 frames in de linklaag, op bedrade links veronderstellen we IEEE 802.3 bekabeld Ethernet. Voor deze oefeningen beperken we onze aandacht tot de gebruikte MAC adressen in de frame headers. 
+   >
+   >We veronderstellen dat verkeer wordt gestuurd tussen verschillende hosts en op bepaalde momenten wordt onderschept. De tabellen in de figuur geven een aantal situaties voor (1 per rij) waarvoor we de MAC adressen zoeken (aangegeven in rood) zoals aanwezig in de 802.11 MAC header of 802.3 MAC header. 
+   >
+   >De notatie H1->H2@H2 geeft weer dat een frame afkomstig van H1 richting H3 wordt onderschept wanneer het binnenkomt bij H2.
+   >
+   >Vul in de onderstaande velden (in correcte volgorde, van 1 tot 8) de gebruikte MAC adressen in. Het MAC adres van H1 geef je aan als "H1", of gebruikt de interfacenaam zoals aangegeven op de figuur (bv. van de router).
+
+   ![img](https://ufora.ugent.be/content/enforced/447810-E761031A_2021/PastedImage_oilxzukwi6aeb8ls2ovi5kjvzhahraif00157480720.jpg?_&d2lSessionVal=4kTPuwDoYS3HYrS7lCHOpMsoA)
+
+   Antwoord voor invulvraag # 1: **(AP2)**
+
+   Antwoord voor invulvraag # 2: **(r1if2)**
+
+   Antwoord voor invulvraag # 3: **(AP1)**
+
+   Antwoord voor invulvraag # 4: **(r1if2)**
+
+   Antwoord voor invulvraag # 5: **(AP2)**
+
+   Antwoord voor invulvraag # 6: **(r1if2)**
+
+   Antwoord voor invulvraag # 7: **(H1)**
+
+   Antwoord voor invulvraag # 8: **(r1if2)**
