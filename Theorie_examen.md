@@ -552,80 +552,125 @@
 
 **9. Wat is ICMP ? Geef een voorbeeld bij het gebruik in een redirect en traceroute.**
 
-> ICMP = **Internet Control Message Protocol**. Het wordt bijvoorbeeld gebruikt om te achterhalen of een host **bereikbaar** is. Hiervoor kan het **ping**- of **traceroute**-commando worden gebruikt. 
+> ICMP = **Internet Control Message Protocol**. 
+>
+> Voorziet diagnostische mechanismen voor:
+>
+> - Host reachability (**Ping**)
+> - Routing problemen oplossen (**ICMP Redirect**)
+> - Route discovery (**Traceroute**)
+> - andere (congestie notificatie, time sync,..) 
 >
 > Sommige firewalls blokkeren ICMP berichten om te voorkomen dat hackers hier misbruik van maken om bijvoorbeeld een DDOS-aanval mee uit te voeren.
 
-> **Redirect** staat in voor het detecteren en oplossen van routeringsproblemen. Dit aan de hand van ICMP redirect berichten.(Voorbeeld:..)
+> **Redirect** staat in voor het detecteren en oplossen van routeringsproblemen.
 
-> Via **traceroute** kunnen de IP-adressen van de tussenliggende hops tussen de source- en destinationhost worden weergegeven. Hiervoor wordt er steeds een ICMP bericht uitgestuurd die bij elk nieuw pakket, de Time To Live (TTL) met één verhoogd. Dit wordt gedaan totdat de destinationhost bereikt is. Wanneer de host niet bereikbaar is binnen de maximale TTL (maximum?), zal het antwoord een timeout teruggeven. De TTL kan ook beschreven worden met het maximum aantal tussenliggende hops het pakket mag passeren om de destinationhost te bereiken.
+> Via **traceroute** kunnen de IP-adressen van de tussenliggende hops tussen de source- en destinationhost worden weergegeven. Hiervoor wordt er steeds een ICMP bericht uitgestuurd die bij elk nieuw pakket, de Time To Live (**TTL**) **met één verhoogd**. Dit wordt gedaan totdat de destinationhost bereikt is. Wanneer de host niet bereikbaar is binnen de maximale TTL , zal het antwoord een **timeout** teruggeven. De TTL kan ook beschreven worden met het maximum aantal tussenliggende hops het pakket mag passeren om de destinationhost te bereiken.
+
+
 
 **10. Leg de basisprincipes van SNMP uit (wat, waarom, hoe, ...). Verwerk het woord MIB en OID in je antwoord.**
 
->**SNMP** = Simple Network Message Protocol. Het Object ID (**OID**) is het ID in de MIB-tree dat een hiërarchische ordening heeft.
+
+
+>**SNMP** = Simple Network Message Protocol is het protocol da gesproken wordt tussen de network management station (**NMS**) en de **agent**.
 >
->**MIB** = Management Information Base
+>Het maakt gebruik van een connectieloos protocol **UDP**.
 >
->Het Simple Network Message Protocol (**SNMP**) laat toe om **UDP-berichten uit te sturen naar beheerde toestellen zoals routers, switches, servers… om informatie op te vragen of configuratiewijzigingen door te voeren.**
+>Het belangrijkste dat gemanaged moet moet worden is de **MIB** (managemente information base).
 >
->De Management Information Base (**MIB**) wordt gebruikt om informatie bij te houden over de network management data. Om veranderingen in het netwerk door te voeren, moet de managing server SNMP berichten verzenden naar de agenten van de desbetreffende nodes om de wijzigingen te kunnen doorvoeren. Hiervoor moet de Object ID (**OID**) bij de MIB gekend zijn.
+>**MIB**:
 >
->De managing server kan ook informatie over de nodes opvragen. Dit moet gebeuren op basis van het OID. Ook hier wordt een SNMP bericht gestuurd. De agent van de node stuurt hierop een antwoord terug. De MIB houdt een hiërarchische boomstructuur bij van de objecten. Elke branche in de boom bevat een naam en getal. Door getallen, scheiden met een “.” op te geven, kom je uit op een OID. 
+>- = Management Information Base
+>- Informatie store dat management data over de netwerk elementen bijhoudt.
+>- Vaste structuur: Structure of Management Information (**SMI**)
+>- Elk object heeft een Object Identifier (**OID**). Deze identifier is een boomstructuur die SNMP voor mibs definieert.
+
+
+
+>De Management Information Base (**MIB**) wordt gebruikt om informatie bij te houden over de network management data. Om **veranderingen** in het netwerk door te voeren, moet de managing server SNMP berichten verzenden naar de agenten van de desbetreffende nodes om de wijzigingen te kunnen doorvoeren. Hiervoor moet de Object ID (**OID**) bij de MIB gekend zijn.
+>
+>De managing server kan ook **informatie** over de nodes **opvragen**. Dit moet gebeuren op basis van het OID. Ook hier wordt een SNMP bericht gestuurd. De agent van de node stuurt hierop een antwoord terug. 
 
 
 
 **11. Hoe kan Ansible ingezet worden voor netwerkautomatisering, en wat zijn de nodige basiscomponenten en protocollen van Ansible?**
 
->Ansible staat in voor network Devops. 
+>Ansible staat in voor Netwerk Devops. 
 >
->Het zorgt er voor dat er op een automatische manier netwerk tests en configuratie uitgevoerd kunnen worden (=Network as code).
->Ansible kan zowel Lokaal of remote (in de cloud) uitgevoerd worden.
+>Het zorgt er voor dat er op een **automatische** manier netwerk **tests** en **configuratie** uitgevoerd kunnen worden (=**Network as code**).
+>Ansible kan zowel **Lokaal** of **remote** (in de cloud) uitgevoerd worden.
 >
 >**basiscomponenten**:
 >
->* Inventory: Lijst van systemen (hosts) in de infrastructuur die geautomatiseerd uitgevoerd worden.playbooks: 
->* Ansible bevat playbooks die configuratie bevatten voor desbetreffende hosts die in de playbook gedefinieerd zijn, die op hun eigen een verwijzing zijn naar de hostfile. Zo kan de configuratie worden ingesteld op honderden hosts tegelijkertijd. Ook kunnen er plays (taken) gedefinieerd worden binnen de playbooks. Deze geven aan welke taak uitgevoerd moet worden door welke host.
->* key features:
->  - agent-less: geen agents nodig op target devices (bv netwerk elementen).
->  - templates (bv jinja2)
->  - modules: 
->    - declaratieve staat: gewenste eindtoestand definiëren.
->    - idempotent:resultaat van uitvoer altijd het zelfde
+>* **Inventory**: Lijst van systemen (hosts) in de infrastructuur die geautomatiseerd uitgevoerd worden.
+>
+>* **Playbooks**:  Ook kunnen er plays (taken) gedefinieerd worden binnen de playbooks. Deze geven aan welke taak uitgevoerd moet worden door welke host.
+>
+>* **Key features:**
+>
+>   - agent-less: geen agents nodig op target devices (bv netwerk elementen).
+>
+>   - templates (bv jinja2)
+>
+>   - modules: 
+>     - declaratieve staat: gewenste eindtoestand definiëren.
+>     - idempotent: resultaat van uitvoer altijd het zelfde
 
 
 
 **12. Wat is netwerkvirtualisatie en waarom wordt het gebruikt?**
 
->virtualisatie: bepaalde functie wordt ontkoppeld van de specifieke hardware waarop ze gebruikt wordt.
->
->= Virtuele netwerk resource approach bovenop standaard servers. (= software switch en routers)
->
->Wordt bijvoorbeeld gebruikt in frameworks zoals mininet.
 
-![img](https://lh3.googleusercontent.com/Jti1Kp21Omjb4_g6KvsphnC6vNAW5ydsq1pwceSYSMHN3fuUWmhXCmo_jZohubAmsTEhdTl7yBMejS56EJOCLoa7W7XSnLBDgYL7bWzPcnvNsaKA0KKoT0YT_DtC6gUg0ZbTF_qygafHF0dF5g)
+
+>**Virtualisatie**: bepaalde functie wordt ontkoppeld van de specifieke hardware waarop ze gebruikt wordt.
+>
+>In plaats van dure hardware aan te schaffen, wenst men deze vaker in **virtueel** software te imlementeren. (= software switch en routers)
+>
+>Virtuele netwerk resource approach bovenop standaard servers.
+>
+>Er wordt gebruikt gemaakt van virtuele switches om virtuele netwerk interfaces met elkaar te verbinden.
+>
+>Op die manier kunnen verschillende VM's op de zelfde fysieke host met elkaar communiceren alsof ze op het zelfde LAN netwerk zijn aangesloten.
+>
+>Om communicatie te verwezenlijken moeten er **virtuele links** voorzien worden. (bv VXLAN tunneling)
+>
+>
+
+>![img](https://lh3.googleusercontent.com/Jti1Kp21Omjb4_g6KvsphnC6vNAW5ydsq1pwceSYSMHN3fuUWmhXCmo_jZohubAmsTEhdTl7yBMejS56EJOCLoa7W7XSnLBDgYL7bWzPcnvNsaKA0KKoT0YT_DtC6gUg0ZbTF_qygafHF0dF5g)
+
+
 
 ## Hoofdstuk 6
 
 **1. Hoe werkt een Ethernet switch.**
 
-> Een Ethernet Switch is een Layer 2 “plug and play” device. Het doel van de switch is om het netwerkpakket naar de juiste host te versturen. Hiervoor wordt een switchtabel automatisch opgesteld waarbij de switch leert welke hosts bereikt kunnen worden via welke poort. Op die manier wordt het verkeer gericht gestuurd.
+> Een Ethernet Switch is een **Layer 2 “plug and play” device**. Het doel van de switch is om het netwerkpakket naar de juiste host te versturen. Hiervoor wordt een **switchtabel** automatisch opgesteld waarbij de switch leert welke hosts bereikt kunnen worden via welke poort. Op die manier wordt het verkeer gericht gestuurd.
 
 **2. Hoe worden de switchtabellen ingevuld ? En hoe worden ze gebruikt ?**
 
->De switchtabellen worden opgevuld op basis van het verkeer dat de switch ontvangt. Als de switchtabel een pakket ontvangt, wordt het MAC-adres van de afzender met de respectievelijke poort opgeslagen in de tabel (als het de eerste keer is dat deze host een pakket verstuurd).
->Vervolgens kijkt de switch of die een entry van de ontvanger in de tabel heeft. Als dit het geval is, wordt het verkeer enkel naar de poort uitgestuurd. Wanneer de switch niet weet via welke poort de ontvanger bereikbaar is, wordt het pakket uitgestuurd naar alle poorten, behalve die van de afzender = een broadcast bericht wordt uitgestuurd.
+>De switchtabellen worden **opgevuld op basis van het verkeer dat de switch ontvangt**. Als de switchtabel een pakket ontvangt, wordt het **MAC-adres** van de afzender met de respectievelijke **poort** opgeslagen in de tabel (als het de eerste keer is dat deze host een pakket verstuurd).
+>
+>Vervolgens kijkt de switch of die een entry van de ontvanger in de tabel heeft. Als dit het geval is, wordt het verkeer enkel naar de poort uitgestuurd. Wanneer de switch niet weet via welke poort de ontvanger bereikbaar is, wordt het pakket uitgestuurd naar alle poorten, behalve die van de afzender = een **broadcast** bericht wordt uitgestuurd.
 
 **3. Bespreek STP en geef een voorbeeld.**
 
-> STP = Spanning Tree ProtocolIs het mechanisme dat ervoor zorgt dat er geen loopholes tussen de switches ontstaan in het netwerk. Als dit mechanisme er niet zou zijn, dan zou het netwerkverkeer maar blijven ronddwalen en toenemen totdat er geen verkeer meer verstuurd kan worden omdat er teveel congestion is.Bij STP worden switches onderverdeeld op basis van een prioriteit. De switch met de hoogste prioriteit is de rootswitch. Alle poorten zijn designated poorten. De andere switches kijken via welke poort ze de rootswitch het snelst kunnen bereiken. Deze poorten worden rootpoorten. Andere poorten die een verbinding met een andere switch hebben, worden alternate (alternatieve) poorten genoemd. Deze kunnen geblokkeerd worden als er een loophole kan ontstaan.
+> STP = **Spanning Tree ProtocolIs** het mechanisme dat ervoor zorgt dat er geen **loops** tussen de switches ontstaan in het netwerk. Als dit mechanisme er niet zou zijn, dan zou het netwerkverkeer maar blijven **ronddwalen** en toenemen totdat er geen verkeer meer verstuurd kan worden omdat er teveel congestion is .Bij STP worden switches onderverdeeld op basis van een prioriteit. De switch met de hoogste prioriteit is de **rootswitch**. 
+>
+> Alle poorten zijn **designated poorten**. De andere switches kijken via welke poort ze de rootswitch het snelst kunnen bereiken. Deze poorten worden **rootpoorten**. Andere poorten die een verbinding met een andere switch hebben, worden **alternate poorten** genoemd. Deze kunnen geblokkeerd worden als er een loop kan ontstaan.
 
 **4. Wat is een VLAN ? Bespreek de relatie tussen VLANs en subnetten.**
 
-> VLAN = Virtuele Local Area NetworkVLAN’s delen het network logisch op in plaats van fysiek. Dit laat toe om hosts die fysiek verspreid zijn, tot hetzelfde subnet te laten behoren = ze behoren tot hetzelfde VLAN. Hiervoor zijn er wel switches nodig om dit te kunnen configureren. Op poorten waar een endhost verbonden is, moet deze in access port modus staan en moet het toegewezen worden aan een VLAN. Op poorten waar verkeer van meerdere VLANS moet passeren (e.g. de verbinding gaat van een switch naar een router of van switch naar switch red.), moet deze op trunk modus ingesteld worden en moeten de VLANS toegelaten worden die verkeer over deze poort mogen laten gaan.
+> VLAN = **Virtuele Local Area Network**. VLAN’s **delen het network logisch op in plaats van fysiek**. Dit laat toe om hosts die fysiek verspreid zijn, tot hetzelfde subnet te laten behoren = ze behoren tot hetzelfde VLAN. Hiervoor zijn er wel switches nodig om dit te kunnen configureren. Op poorten waar een endhost verbonden is, moet deze in access port modus staan en moet het toegewezen worden aan een VLAN. Op poorten waar verkeer van meerdere VLANS moet passeren (e.g. de verbinding gaat van een switch naar een router of van switch naar switch red.), moet deze op **trunk** modus ingesteld worden en moeten de VLANS toegelaten worden die verkeer over deze poort mogen laten gaan.
+>
+> **Soorten:**
+>
+> - Port-based: Er wordt een switch port geassigned aan een VLAN
+> - Tag-based: Netwerk traffic wordt getagged. Op deze manier kunnen verschillende VLAN de zelfde switch poort gerbuiken (**trunk**).
 
 **5. Geef een aantal voor- en nadelen van switches (versus routers).**
 
-> Het grootste voordeel voor het gebruik van switches is dat er geen configuratie nodig is wanneer het toestel verbonden is met het netwerk. De switch configureert zichzelf in functie van het netwerk (e.g. de switchtabellen worden automatisch ingevuld) Het principe van “plug and play” is hier van toepassing. Dit is meteen ook het nadeel van de router, deze moet geconfigureerd worden wanneer die verbonden is met het netwerk om te kunnen functioneren.
+> Het grootste voordeel voor het gebruik van switches is dat er **geen configuratie nodig** is wanneer het toestel verbonden is met het netwerk. De switch configureert zichzelf in functie van het netwerk (e.g. de switchtabellen worden automatisch ingevuld) Het principe van “**plug and play**” is hier van toepassing. Dit is meteen ook het **nadeel van de router**, deze moet geconfigureerd worden wanneer die verbonden is met het netwerk om te kunnen functioneren.
 
 ## Hoofdstuk 7
 
@@ -633,32 +678,28 @@
 
 **1. Bespreek de voornaamste verschillen tussen draadloze netwerken en bekabelde netwerken (bv. welke problemen kunnen optreden in draadloze netwerken, die je niet hebt in bekabelde netwerken)?**
 
->Bij draadloze netwerken kan interferentie optreden wanneer twee of meerdere hosts, channels (frequentie waarop de hosts communiceren met een access point) gebruiken die elkaar overlappen. Dit probleem doet zich niet voor bij bekabelde netwerken.
->Het draadloos signaal verzwakt ook wanneer het door muren moet passeren (hiding terminal problem). Hierdoor ervaart de eindgebruiker een verzwakt signaal waardoor die een trager internetsnelheid ervaart.
+>Bij draadloze netwerken kan **interferentie** optreden wanneer twee of meerdere hosts, channels (frequentie waarop de hosts communiceren met een access point) gebruiken die elkaar overlappen. Dit probleem doet zich niet voor bij bekabelde netwerken.
+>Het draadloos **signaal verzwak**t ook wanneer het door muren moet passeren (hiding terminal problem). Hierdoor ervaart de eindgebruiker een verzwakt signaal waardoor die een trager internetsnelheid ervaart.
 
 **2. Hoe werkt het IEEE 802.11 MAC protocol?**
 
 ![img](https://lh5.googleusercontent.com/w1TRNj1D-YGFyH8uea7cMDom3e6Tbk8cbzohNAlrBzPBnCQUCHNNQQ_LFxD7x-8tr3F73JP61HW5x_Lkajt3xe0z5CEKJr5aPi0u3hCSSHDEPOY7oybh9gJ_3xEipO66zsms8zRVpExM44Jw1A)
 
-> Het 802.11 MAC protocol wordt gebruikt om gegevensframes te verzenden/ontvangen tussen een station (vb. een Access Point (AP)) en een draadloos toestel. Aangezien een station met meerdere toestellen kan communiceren over een gemeenschappelijk kanaal, moet er een medium-accessprotocol gebruikt worden om collision zoveel mogelijk te vermijden. 802.11 MAC protocol gebruikt CSMA/CA of Carrier-sense Multiple Access (CSMA) met Collision Avoidance (CA). Het 802.11 MAC protocol heeft echter geen collisiondetectie. Bijgevolg kan het een verzending ook niet stoppen wanneer een collision optreedt. 
+> = Carier Sens Multiple Acces/ Collision avoidance.
 >
-> Met CSMA/CA gaan de stations onmiddellijk een backoff waarde instellen dat random gekozen wordt als ze horen dat een gemeenschappelijk kanaal in gebruik is. In de hoop dat deze waarden verschillen zal een station eerder kunnen beginnen met het verzenden van een frame. Wanneer bij de “verliezende” station de backoff verlopen is, zal deze ‘zien’ dat het kanaal in gebruik is en zal de “verliezende” station wachten met het verzenden van de frame totdat de “winnende” station klaar is met het verzenden van zijn frame.
+> Het 802.11 MAC protocol wordt gebruikt om gegevens te **verzenden/ontvangen** tussen een station (vb. een Access Point ) en een draadloos toestel. Aangezien een station met **meerdere toestellen** kan communiceren over een gemeenschappelijk kanaal, moet er een medium-accessprotocol gebruikt worden om **collision** zoveel mogelijk te **vermijden**. 802.11 MAC protocol gebruikt CSMA/CA of Carrier-sense Multiple Access (CSMA) met Collision Avoidance (CA). Het 802.11 MAC protocol heeft echter geen collisiondetectie. Bijgevolg kan het een verzending ook niet stoppen wanneer een collision optreedt. 
 >
-> Volgende stappen worden ondernomen als een station een frame wilt verzenden:
->
-> - Als een station hoort dat een kanaal niet in gebruik is, verzendt het een frame na een korte tijd, namelijk de distributed inter-frame space (DIS)
-> - Anders kiest een station een willekeurige backoff. Als het kanaal wel in gebruik is, wordt de waarde niet verlaagd
-> - Als de teller van de DIFS of de backoff op 0 komt, start het station met het verzenden van de frame
-> - Als het station een bevestiging ontvangt, weet het dat de frame intact is ontvangen. Als er nog andere frames verzonden moeten worden of het station heeft nooit een bevestiging gekregen, wordt er vanaf stap 2 weer herhaald. De backoff krijgt een andere waarde uit een groter interval als de frame niet toegekomen is
+> - Als channel niet in gebruik is (idle) voor een bepaalde tijd (**DIFS**), dan wordt het verzonden.
+> - Bezet? **random backoff time** telt af zolang idle. wanneer deze is verlopen kan de frame verzonden worden.
+> - **ACK** (bevestiging dat frame is ontvangen) versturen na **SIFS**.
+
+
 
 **3. Bespreek de werking van de adresvelden bij IEEE 802.11 netwerken.**
 
->Het bevat 3 adresvelden. 
->
->- Het eerste adresveld is het **MAC-adres** van het draadloze station waarvoor de frame bestemd is **(destination)**. Als een mobiel toestel of een Access Point (AP) de bestemming is, wordt die MAC-adres in het eerste adresveld ingevuld.
->- Het tweede adresveld is het **MAC-adres** van de afzender **(source)**.
->- Het derde adresveld bevat het **MAC-adres** van de **subinterface van de router waarmee de AP verbonden is**. Dit is de AP waarmee de afzender in verbinding staat. De reden dat het derde adresveld bestaat is om het mogelijk te maken om een 802.11 frame te vertalen naar een ethernet frame (802.3) en omgekeerd. De AP is verbonden met een ethernetverbinding met een router om verkeer naar een ander subnet te sturen. Anders gezegd is het derde adresveld het gateway MAC-adres van het subnet waarin de AP zich bevindt.
->  Wanneer een pakket van één station naar een ander station in een ander subnet gestuurd moet worden zal de afzender bij het eerste adresframe het MAC-adres van de AP plaatsen. Het tweede adresveld bevat de MAC-adres van de afzender (een station). Het derde adresveld is het MAC adres van de router voor dat subnet. Eens het pakket op de AP toekomt wordt het frame vertaald naar ethernetframe. Het eerste adresveld wordt hier weggelaten zodat er enkel nog een source en destination adresveld bestaat. Deze gaat dan via klassieke routering en met de nodige ARP-requests, verstuurd worden naar het juiste subnet waarbij de AP van het ander subnet een 802.11 frame weer opbouwt voor de ontvanger. Hier zal het eerste MAC-adres het adres van de ontvanger zijn. Het tweede adresveld, is de MAC-adres van de AP in het “nieuwe” subnet en het derde adresveld is het MAC-adres van de routerinterface van het subnet waarin de AP waarmee de ontvanger verbonden zit.
+
+
+![Imgur](https://imgur.com/P3EvzSd.png)
 
 ## Hoofdstuk 8
 
