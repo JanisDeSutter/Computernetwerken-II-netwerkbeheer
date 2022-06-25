@@ -229,12 +229,14 @@
 1. **DNS is een hiërarchisch gedecentraliseerd systeem. Geef a.d.h.v. een voorbeeld aan hoe**
    **dit werkt**
 
-   > DNS heeft 3 (of eigenlijk 4 als je de lokaal meetelt) soorten servers, **root** servers, **tld** (top level domain) servers en **authoritative** servers. De root servers staan vanboven aan de tree, er zijn er meer dan 400 over heel de wereld die beheerd worden door 13 organisaties. deze root servers bevatten de ip adressen van TLD servers. Die top level domain servers beheren top level domeinen zoals .com, .be, .edu, … en bevatten de ip adressen van de authoritative servers. Een authoritative server is een server van het bedrijf zelf die opgezet werd die zelf verwijst naar hun eigen webserver of bestemming. Wanneer je bv naar amazon.com surft zal eerst de root server gecontacteerd worden die verwijst door naar het .com tld, die tld verwijst dan door naar de amazon.com authorative sever die dan zelf zegt ah gebruik dat ip maar.
+   > DNS heeft 3 (of eigenlijk 4 als je de lokaal meetelt) soorten servers, **root** servers, **tld** (top level domain) servers en **authoritative** servers. 
+   >
+   > De root servers staan vanboven aan de tree, er zijn er meer dan 400 over heel de wereld die beheerd worden door 13 organisaties. deze root servers bevatten de ip adressen van TLD servers. Die top level domain servers beheren top level domeinen zoals .com, .be, .edu, … en bevatten de ip adressen van de authoritative servers. Een authoritative server is een server van het bedrijf zelf die opgezet werd die zelf verwijst naar hun eigen webserver of bestemming. Wanneer je bv naar amazon.com surft zal eerst de root server gecontacteerd worden die verwijst door naar het .com tld, die tld verwijst dan door naar de amazon.com authorative sever die dan zelf zegt ah gebruik dat ip maar.
 
    ![Imgur](https://imgur.com/jvSxTWk.png)
 
    
-
+   
 2. **Een lokale DNS-server werkt meestal zowel op recursieve als iteratieve wijze. Bespreek**
    **beide werkwijzen. Leg uit welke methode gebruikt wordt voor lokale hosts.**
 
@@ -263,7 +265,7 @@
 3. **Wat is (in de context van DNS) : RR, A, NS, CNAME, MX (geef ook een voorbeeld)**
 
 >**RR** = Resource Records → Manier om informatie op te slaan in de DNS-database. De algemene syntax is: [name], [TTL], [class], record type, record data. Een Resource Record kan een A-, NS-, CNAME-, MX-… als recordtype bevatten.
->A = een IPv4 adres voor een corresponderende hostname (dns.google.com IN A 8.8.8.8)
+>**A** = een IPv4 adres voor een corresponderende hostname (dns.google.com IN A 8.8.8.8)
 >**NS** = name server → bevat het IP adres voor dat (sub)domein (domein != hostname) (ugent.be IN NS ugentdns1.be)
 >**CNAME** = bevat een alias (e.g andere naam) voor een record naarwaar het point ([www.ugent.be](http://www.ugent.be) IN CNAME ugent.be)
 >**MX** = mail record → verwijst naar een mailserver voor dat domein. (mail.ugent.be IN MX 157.8.8.8)
@@ -272,14 +274,22 @@
 
 4. **Wat is reverse DNS en hoe werkt het?**
 
-> Doet een **vertaling** van een **IP-adres** naar een **domeinnaam**. Dit kan gedaan worden om bijvoorbeeld na te gaan of de afzender van de mail geen spam is. Hiervoor moet een **PTR-record** worden geconfigureerd. Het maakt ook gebruik van het in-addr.arpa domein en schrijft het ip omgekeerd om zo tot het juiste domein te raken.
+> Doet een **vertaling** van een **IP-adres** naar een **domeinnaam**. Dit kan gedaan worden om bijvoorbeeld na te gaan of de afzender van de mail geen spam is. Hiervoor moet een **PTR-record** worden geconfigureerd. Het maakt ook gebruik van het **in-addr.arpa** domein en schrijft het ip omgekeerd om zo tot het juiste domein te raken.
 
 
 
 5. **Leg het principe van sockets uit en hoe je in de praktijk de actieve sockets op je Linux-**
    **systeem kan opvragen.**
 
->Sockets zijn de **actieve poorten** waar het systeem op luistert en eventueel verkeer ontvangt en/of verstuurd. Applicaties en/of services kunnen beroep doen op poorten om verkeer uit te sturen en te ontvangen. Het is als het ware een commnunicatie endpoint dat werwijst naar de "deur" tussen de **applicatie process** en het **end-to-end transport protocol**. Je kan actieve sockets opvragen met het **netstat** commando. Een modernere variant is “ss” maar werkt enkel op Linux.
+>Het is een soort systemcall die je kan uitvoeren vanuit een applicatie om een socket op te zetten.
+>
+>Sockets zijn de **actieve poorten** waar het systeem op luistert en eventueel **verkeer ontvangt en/of verstuurt**. Applicaties en/of services kunnen beroep doen op poorten om verkeer uit te **sturen** en te **ontvangen**. 
+>
+>Het is een soort "**deur**" tussen de **applicatie laag** (L5) en **transport laag** (L4). 
+>
+>Je kan actieve sockets opvragen met het **netstat** commando. Een modernere variant is “ss” maar werkt enkel op Linux.
+>
+>Om een **TCP connectie** op te zetten maakt men gebruik van sockets.
 
 
 
@@ -288,8 +298,45 @@
 6. **Bespreek de werking en functie van een DHT in peer to peer netwerken.**
 
 > DHT = Distributed Hash Table.
+>
+> Het is een beter alternatief voor de tracker in p2p toepassingen. 
+>
+> Houdt gedistribueerd bij welke chunck op welk adres beschikbaar is.
+>
+> Er kan data geïnsert worden in de tabel en er kan ook op gequeried worden.
+>
+> Distributed = kan opgeslaan worden over verschillende nodes
+>
+> moet key-value paren (tuples) distribueren over verschillende nodes. Een techniek die hier voor gebruikt kan worden is **consistent hashing.**
+>
+> - elke **node** krijgt id toegewezen van m-bit adhv hash functie (modulo, sha1,..)
+> - elke **key** krijgt ook id toegewezen van m-bit adhv hash functie (modulo, sha1,..)
+>
+> 
+>
+> **probleem**: niet elk id heeft een corresponderende nodes:
+>
+> **oplossing:** id opslaan op eerstvolgende node
 
-> Het gebruikt een hash tabel die gedistribueerd is over het p2p netwerk (dit is veel beter dan een tracker). **Peers** kunnen inserten in de tabel en ook queryen. Data wordt opgeslagen op de peers met hetzelfde id als de hash key. zo worden stukken van een bestand over een hoop deel peers verdeeld, als een id niet bestaat gaat het naar de opvolgende grootste peer. Door **peer churn** worden er een groot deel peers altijd aangemaakt en weer verwijderd. Hierdoor moet het altijd herverdeeld worden. Als een node weggaat geeft het zijn data door aan zijn opvolger. Je kan niet heel het netwerk opvragen over wie welke id heeft, dat wordt opgelost door de regel dat je gewoon altijd aan de opvolger moet vragen. In het slechtste geval moet de vraag heel de ronde passeren alvorens te weten over welk id het gaat. De oplossing hiervoor zijn **Finger Tables**.
+
+
+![Imgur](https://imgur.com/xZGQMmw.png)
+
+
+
+> **peer churn:** continue joining en leaving van nodes. key-values moeten opnieuw toegekend worden.
+
+![Imgur](https://imgur.com/zsXgZlc.png)
+
+
+
+**routing:** 
+
+> Je kan niet heel het netwerk opvragen over wie welke id heeft, dat wordt opgelost door de regel dat je gewoon altijd aan de opvolger moet vragen. In het slechtste geval moet de vraag heel de ronde passeren alvorens te weten over welk id het gaat. De oplossing hiervoor zijn **Finger Tables**.
+
+
+
+![Imgur](https://imgur.com/aonvc79.png)
 
 
 
@@ -301,11 +348,11 @@
 
 > NAT = **Network Address Translation**
 >
-> NAT (lange naam NATv4) laat toe om IPv4 adressen te vertalen naar een ander IPv4 adres. Deze vertaling kan zijn een **private IPv4 adres naar een publiek IPv4 adres**. Maar ook even goed een vertaling van een private naar een private IPv4 adres. De vertaling hoeft niet een 1-op-1 vertaling te zijn. Een range van IPv4 adressen (vb. 192.168.0.0/24) kan verwijzen naar één (publiek) IPv4 adres.
+> NAT (lange naam NATv4) laat toe om IPv4 adressen te vertalen naar een ander IPv4 adres. Deze vertaling kan zijn een **private IPv4 adres naar een publiek IPv4 adres**. Maar ook even goed een vertaling van een private naar een private IPv4 adres. De **vertaling hoeft niet een 1-op-1** vertaling te zijn. Een **range** van IPv4 adressen (vb. 192.168.0.0/24) kan verwijzen naar één (publiek) IPv4 adres.
 >
 > Het werkt aan de hand van de poorten op een router. Dat laatste komt vooral voor in Azië waarbij de ISP’s een dubbele NAT-vertaling doen om ervoor te zorgen dat er genoeg IPv4 adressen beschikbaar zijn voor de consumenten. Zo wordt één publiek IPv4 adres vertaald naar een privaat adres dat zich in de 10.0.0.0/8 range bevindt. Nadien wordt dat adres uit de 10.0.0.0/8 range opnieuw vertaald naar een IP uit een andere range (vb 192.168.0.0/24). Dit IP is toegekend aan een endhost. Op die manier kunnen minstens 16 000 verschillende particulieren en bedrijven gemapped worden naar één publiek IPv4 adres.
 >
-> Het **voordeel** van NAT is dat het indirect kan fungeren als een firewall waarbij bepaalde IP adressen of ranges van IP adressen toegelaten/geweigerd kunnen worden om verbinding te maken met een ander adres-range of internet. Daarnaast kan het lokaal netwerk onafhankelijk veranderen zonder dat de buitenwereld hiervan op de hoogte moet worden gebracht.
+> Het **voordeel** van NAT is dat het indirect kan fungeren als een **firewall** waarbij bepaalde IP adressen of ranges van IP adressen toegelaten/geweigerd kunnen worden om verbinding te maken met een ander adres-range of internet. Daarnaast kan het lokaal netwerk onafhankelijk veranderen zonder dat de buitenwereld hiervan op de hoogte moet worden gebracht.
 >
 > Het **nadeel** van NAT is dat het enkel werkt op layer 3 (op router-niveau). Verder zijn de entries ook enkel gebaseerd op uitgaand verkeer.
 
@@ -313,10 +360,14 @@
 
 2. **Stel een packet flow diagram op, waar één client in een netwerk een DHCP adres aanvraagt, maar waar er twee DHCP servers in het netwerk voorkomen. Leg aan de hand hiervan de werking van DHCP uit.**
 
->  De PC stuurt een **DHCP-DISCOVER** bericht uit op het netwerk. Dit is een broadcastbericht, wat betekent dat iedereen binnen het netwerk het bericht zal ontvangen.Beide servers ontvangen het DHCP-DISCOVER bericht waarna beide servers een **DHCP-OFFER** bericht sturen (als ze nog beschikbare IP adressen hebben om uit te delen). Dit bericht wordt in unicast formaat uitgestuurd, wat wil zeggen dat het bericht naar één iemand wordt gestuurd. Dit betekent dat de PC 2 DHCP-OFFER unicast berichten zal ontvangen. 
->
->  De PC kiest zelf aan welke server die een **DHCP-REQUEST** (unicast) bericht die zal uitsturen, vaak is dat de server waarvan de PC het eerst een DHCP-OFFER bericht van heeft gekregen. De PC stuurt een DHCP-REQUEST bericht uit met de vraag om dat IP-adres te verkrijgen.
->  De DHCP-server zal antwoorden met een **DHCP-ACKNOWLEDGEMENT** bericht waarna de computer voor een leasetijd (meestal 24 uur) dat IP-adres toegeëigend krijgt.
+>  - De PC stuurt een **DHCP-DISCOVER** bericht uit op het netwerk. (**Broadcast**)
+>  - beide servers antwoorden met een **DHCP-OFFER**. (**Unicast**)
+>  - De PC kiest zelf aan welke server die een **DHCP-REQUEST** bericht die zal uitsturen. (**Unicast**)
+>  - De DHCP-server zal antwoorden met een **DHCP-ACKNOWLEDGEMENT** bericht waarna de computer voor een **leasetijd** (meestal 24 uur) dat IP-adres toegeëigend krijgt. (**Unicast**)
+
+**DHCP-OFFER** & **DHCP-ACK** zijn **niet altijd broadcast**. DHCP heeft een extra flag (Bootp flag) waar men kan aanduiden of dat het unicast is of broadcast. DHCP server weet waar naar de unicast te sturen adhv het MAC adres.
+
+
 
 ![img](https://lh6.googleusercontent.com/kJa5nV44E-NiDLsp4Xpp7m3vOmKRNPBYdYd-wIaFjiOOf4l5KB96ekQncEeRyyFEs554gBz3xQYaNPyf9ekkMw5yT8KlUKjrISF7AkxUYLQdHkJ-RFNVR7j9nt27Smm0HODnSY6BcKk0F_vt6w)
 
@@ -324,7 +375,11 @@
 
 **3. Wat is DHCP relay en waarvoor dient het?**
 
-> DHCP relay zorgt ervoor dat DHCP-requests de lokale LAN kunnen verlaten om een DHCP-server te kunnen bereiken die op een ander subnet gelegen is. **De DHCP Relay agent** stuurt alle broadcast messages door naar een DHCP server in een ander subnet. Hij ontvangt een **DHCPDISCOVER** **broadcast** message, ze het om naar een **UNICAST** message en verstuurt het daarna door naar een DHCP server in een ander subnet. Daarna stuurt de externe DHCP server een **DHCPOFFER** **unicast** terug. De relay agent **broadcast** vervolgens het **DHCPOFFER** binnen zijn subnet.
+> DHCP relay zorgt ervoor dat DHCP-requests de lokale LAN kunnen verlaten om een DHCP-server te kunnen bereiken die op een ander subnet gelegen is.
+>
+> **De DHCP Relay agent** stuurt alle **DHCPDISCOVER** **BROADCAST** messages per **UNICAST** door naar een DHCP server in een ander subnet. 
+>
+> Daarna stuurt de externe DHCP server een **DHCPOFFER** **UNICAST** terug. De relay agent **BROADCAST** vervolgens het **DHCPOFFER** binnen zijn subnet.
 
 
 
@@ -336,9 +391,10 @@
 
 > SDN (Software-Defined Networking)
 >
-> Het is een benadering van netwerkbeheer die dynamische, programmatisch efficiënte netwerkconfiguratie mogelijk maakt om de netwerkprestaties en -security te verbeteren, waardoor het meer lijkt op cloud computing dan op traditioneel netwerkbeheer.Het voorziet abstracties om op basis daarvan routing applicaties te schrijven.
-> OpenFlow is de pionier binnen dit concept. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plan
+> Het is een benadering van **netwerkbeheer** die **automatische**, **dynamische**, **programmatisch** **efficiënte** **netwerkconfiguratie** mogelijk maakt om de **netwerkprestaties** en -**security** te **verbeteren**, waardoor het meer lijkt op cloud computing dan op traditioneel netwerkbeheer.
 >
+> Het voorziet abstracties om op basis daarvan routing applicaties te schrijven.
+> **OpenFlow** is de pionier binnen dit concept. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plane (harware);
 
 ![img](https://lh5.googleusercontent.com/XBHHpHALovtr2H-ecTyBdoWv2qUnzmTeTpQ6N7vHZWVm8UcTGjFx0lsP3Ainu6XgGru18bGfwW6WErgctdWJHG1jgy3zOskEjN0FpMtm0p4yx9KHmf2EJdWGoakjDXLYeWFaGNeqSolVdy7svQ)
 
@@ -355,9 +411,9 @@
 >
 >  **3 types:**
 >
->  - Stub AS: Heeft slechts 1 connectie naar de rest van het internet
->  - Transit AS: verbindt 2 of meerdere AS’sen.
->  - Multi connected AS: heeft via meerdere verbindingen toegang tot andere AS’sen maar fungeert niet als transit
+>  - **Stub AS**: Heeft slechts 1 connectie naar de rest van het internet
+>  - **Transit AS**: verbindt 2 of meerdere AS’sen.
+>  - **Multi connected AS**: heeft via meerdere verbindingen toegang tot andere AS’sen maar fungeert niet als transit
 
 ![img](https://lh3.googleusercontent.com/EoezP7FO7bGHEykisYL8ELQ2YdlVH02F_Yf2iu1DIDCEidXpw30NyLpDVtssgmpUI7p5NtaV7kOI5qFe5KXgNMUjoJlxSCEcMA8i4zrqWuNkD5X3jA8a1zFcjtzr8htTlKbwHe9VVI_VRIGjDg)
 
@@ -373,19 +429,27 @@
 
 
 
+**Gateway routers** zijn verbonden met andere AS'en.
+
+
+
 **3. Leg het werkingsprincipe van distance vector en link-state routering uit. Geef een voorbeeld voor beide strategieën.**
 
 
 
-> **distance vector routing:** disctance vector = vector met gewichten die aangeven hoe ver een gegeven router zich bevindt (bepaald door bandbreedte). Afstand wordt bepaald door Bellman-Ford algoritme.
-> Iedere router ontvangt disctance vector van buren (bv elke 30 seconden). Ook update hij zijn eigen locale distance vector.
->
+> - **distance vector routing:** disctance vector = vector met gewichten die aangeven hoe ver een gegeven router zich bevindt (bepaald door bandbreedte).
+> -  Afstand wordt bepaald door Bellman-Ford algoritme.
+> - Iedere router ontvangt disctance vector van buren (bv elke 30 seconden). Ook update hij zijn eigen locale distance vector.
+> - **RIP**
 
 ![img](https://lh5.googleusercontent.com/2PhqlEdbts0km3WiKjTGpcJ5xt-ShXNU0GrGHJmaZ0hog1QgB4nngs6bg0G-xfSPM_0UOxmd8NhLoxWQKdHBrYV0fn-Xn4i5tZFQ4uf7t1qctO-dkkKuagO3tlF-Kn2K04KJ-EQybKhk4MSHAQ)**
 >
-> 
+>
 >**link-state routing:**
-> Houdt afstand tot bepaalde router bij aan de hand van een link state database. Maakt gebruik van advertisements om link states te verspreiden.Maakt gebruik van OSPF om het shortest path te bepalen.
+>
+>- Houdt **afstand** tot bepaalde router bij aan de hand van een **link state database**. 
+>- Maakt gebruik van advertisements om link states te verspreiden.
+>- Maakt gebruik van **OSPF** om het shortest path te bepalen.
 
 ![img](https://lh4.googleusercontent.com/GjkDpefkPTyMTGttAzBr8SHhYF9BtgBK82Muk2R70E_-HL59ONX1y-1_OC6xlAe3Olaub99jd61DRAg8PNAiTZORvca4Kp5IkFP924CIiQBSm5ZLxJCcfaT0TPW2MwZZnXDtvhI4Rclq1JS9_A)
 
@@ -397,66 +461,80 @@
 
 > **distance vector routing:** 
 >
-> - **Count to infinity** :	
+> - **Count to infinity** (Netwerk convergeert traag) :	
 >
 >   Oplossingen:
 >
 >   - **Split horizon**: Als router nooit distance vector doorgeven aan buur als router gebruik maakt van buur om bestemming te bereiken.
->   - **Poisoned reverse** : Als router nooit distance vector doorgeven aan buur als router gebruik maakt van buur om bestemming te bereiken.In plaats daarvan geef je afstand oneindig mee.
+>   - **Poisoned reverse** : Als router nooit distance vector doorgeven aan buur als router gebruik maakt van buur om bestemming te bereiken.In plaats daarvan geef je afstand **oneindig** mee.
+
+>**link-state routing:**
 >
->    **link-state routing:**
+>- Geen directe problemen (denk ik?).
 >
-> - Geen directe problemen (denk ik?).
+>**significante verschillen**:
+>
+>- **Link-state routing** kan goed omgaan met **veranderingen** in het netwerk, **Distance vector routing** minder goed.
+>- **Link-state routing** kan gebruikt worden bij **grote netwerken**, **distance vector routing** eerder bij **kleine netwerken**.
+
+
+
+![Imgur](https://imgur.com/jtjLRNS.png)
 
 
 
 **5. Bespreek hierarchical OSPF. Waarom is dat nuttig?**
 
-
-
 > OSPF = **Open Shortest Path First**
 
->- zowel IPV4 als IPV6
+**hierarchical OSPF**:
 
->- Wordt gebruikt bij intra-AS routing
+- Bij grote netwerken zorgt het verspreiden van link states voor veel overhead.
 
->- maakt gebruik van advertisements om link states te verspreiden Dit doet hij over volledige AS adhv flooding. OSPF stuurt direct een IP pakket in plaats van TCP of UDP
+- Oplossing: Topologie opsplitsen in hiërarchische areas om het protocol beter te laten schalen.  
 
->- advanced features:
->   - Security (authenticatie)
->   - multipath : verschillende same-cost paths toegestaan
->   - uni- & multicast support
->   - hiërarchische OSPF binnen grote domeinen
+- Iedere area zal enkel link state info verpreiden binnen de area. = minder belasting in netwerk.
+
+- routers gaan enkel korste paden berekenen binnen area.
+
+- **Backbone**: verbindt verschillende areas met elkaar.
+
+- **Area border routers** geven toegang tot bepaalde area. Ze moeten proberen hun netwerk zo veel mogelijk te aggregeren. = minder belasting 
+
+  
+
+  
 
 ![img](https://lh4.googleusercontent.com/yAgc1zCsd5oKkJZu4M8_oGEOs17smJ8kKgCj2JCkaJgCm8TTHWi3S480EOOahGNa4bODmKmCvyq-zGom2Pq_1A3rjs0w3SGzcx8va9T0pDZIbg7erGzu6oxFdr9avSQRKzoOB6ufMEicPZg-4w)
 
-  
+
 
 **6. Bespreek een voorbeeld van BGP. Waarom heeft men I-BGP en E-BGP ?**
 
 > BGP = Border gateway protocol.
 >
-> Wordt gebruikt om te routering tussen verschillende AS’sen gebruik makend van tcp (port 179). Het is een path-vector protocol (deelt paden naar andere AS’en met verschillende tussenliggende AS’en.) bv D via [A,B,C]. 
+> Wordt gebruikt om te routering tussen verschillende AS’sen gebruik makend van tcp (port 179). Het is een **path-vector protocol** (deelt paden naar andere AS’en met verschillende tussenliggende AS’en.) bv D via [A,B,C]. 
 >
 > **principes**: 
 
->- advertisement:border routers delen subnetten die ze kunnen bereiken met andere border routers. (via **E-BPG** = external BGP)
->- propagation:
->  - **I-BGP** (internal BGP) wordt gebruikt om reachability informatie te delen met andere routers binnen AS.
+>- **Advertisement**: border routers delen subnetten die ze kunnen bereiken met andere border routers. (via **E-BPG** = external BGP)
+>- **Propagation**:
+>  - **IBGP** (internal BGP) wordt gebruikt om reachability informatie te delen met andere routers binnen AS.
+>  - **EBGP** tussen border gateways.
 >  - policy
->- route selection: adhv van volgende eliminatie regels:
->  - policy
->  - #aantal AS’enclosest 
+>- **Route selection**: adhv van volgende eliminatie regels:
+>  - policy (bv niet advertisen naar niet-betalende klanten of concurenten)
+>  - korste AS pad
 >  - next-hop (berekend door intra-as protocol)
+
+
 
 **7. Wat is een AS-PATH ? Wat is een NEXT-HOP ?**
 
 > Het zijn BGP-attributes.
 >
-> - AS-PATH: path vector, welke zijn de tusseliggende AS’sen?
-> - NEXT-HOP: Interface waar AS-path begint. Hops zijn geen routers maar AS’en.
-
-
+> - **AS-PATH**: path vector, welke zijn de tusseliggende AS’sen?
+> - **NEXT-HOP**: Interface waar AS-path begint. Hops zijn geen routers maar AS’en.
 
 
 
@@ -464,8 +542,9 @@
 
 >  Border routers gaan informatie gaan delen met andere router aan de hand van bepaalde voorwaarden (policies). 
 >
-> Zo zal AS 54 in onderstaand voorbeeld zijn informatie niet delen met AS 134 omdat AS 134 geen betalende klant is.
+>  Zo zal AS 54 in onderstaand voorbeeld zijn informatie niet delen met AS 134 omdat AS 134 geen betalende klant is.
 >
+>  Een AS kan er bijvoorbeeld ook voor kiezen om zijn informatie niet te delen met concurenten.
 
 ![img](https://lh3.googleusercontent.com/XgPPDsWLWg4rhOKRRd3EfeCyi7PnWRKjD0fhIdRVk5gBg_qz8Lm5_6TLOiEO5mYrcRT80GYKelRQohfNGsxEcIAYKjnOr8TNb_n8QMG-hRfDjxzUrQESvlcXNaFjvqufrOMGlxbEvVhmF2Iu7A)
 
@@ -473,7 +552,9 @@
 
 **9. Wat is ICMP ? Geef een voorbeeld bij het gebruik in een redirect en traceroute.**
 
-> ICMP = **Internet Control Message Protocol**. Het wordt bijvoorbeeld gebruikt om te achterhalen of een host bereikbaar is. Hiervoor kan het ping- of traceroute-commando worden gebruikt. Sommige firewalls blokkeren ICMP berichten om te voorkomen dat hackers hier misbruik van maken om bijvoorbeeld een DDOS-aanval mee uit te voeren.
+> ICMP = **Internet Control Message Protocol**. Het wordt bijvoorbeeld gebruikt om te achterhalen of een host **bereikbaar** is. Hiervoor kan het **ping**- of **traceroute**-commando worden gebruikt. 
+>
+> Sommige firewalls blokkeren ICMP berichten om te voorkomen dat hackers hier misbruik van maken om bijvoorbeeld een DDOS-aanval mee uit te voeren.
 
 > **Redirect** staat in voor het detecteren en oplossen van routeringsproblemen. Dit aan de hand van ICMP redirect berichten.(Voorbeeld:..)
 
@@ -588,13 +669,10 @@
 > **Stateless packet filter:** Beoordeelt elk pakket. maakt gebruik van opgestelde regels bijvoorbeeld source en destination address en zal op basis daarvan het pakket doorlaten of droppen. Dit gebeurt via een ACL (access control list)
 
 ![img](https://lh3.googleusercontent.com/l2vHu_P0E0AYZyqpVB1n6iKW_TKsajLD5OHxCaOS61wPE36hQhAx0Oflamm_mfPiJ_tBaXm3Uo_awL_UgKM3A4HW1oCACXYe6o-fFVSU4MgbiEFoHjwP1yohR14QAD_385PklWHN-Bq-I1uQgw)
->
-> 
->
-> 
->
-> **Stateful packet filter:** Monitort tcp verbindingen en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag).
->
+
+
+
+>**Stateful packet filter:** Monitort tcp verbindingen en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag).
 
 ![img](https://lh6.googleusercontent.com/tnKZKhwIlB8stlM5KdAPXLKrerpSlr1MJDvJs2qvjQ_v_FacWjUjbuC3b9OD-u6lpAWtfGiSFzra6AB9pD7GGFSb7T15DcWCkUYCV3Yzoa8VHvb_mUkGyxxK5V7L5IrF046688AbPMRLWAf60w)
 > **Application gateways:** Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer.
@@ -932,6 +1010,10 @@ Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontv
    >
    >Vul in de onderstaande velden (in correcte volgorde, van 1 tot 8) de gebruikte MAC adressen in. Het MAC adres van H1 geef je aan als "H1", of gebruikt de interfacenaam zoals aangegeven op de figuur (bv. van de router).
 
+   
+
+   ![Imgur](https://imgur.com/Xp1EYya.png)
+
    ![img](https://ufora.ugent.be/content/enforced/447810-E761031A_2021/PastedImage_oilxzukwi6aeb8ls2ovi5kjvzhahraif00157480720.jpg?_&d2lSessionVal=4kTPuwDoYS3HYrS7lCHOpMsoA)
 
    Antwoord voor invulvraag # 1: **(AP2)**
@@ -949,3 +1031,42 @@ Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontv
    Antwoord voor invulvraag # 7: **(H1)**
 
    Antwoord voor invulvraag # 8: **(r1if2)**
+
+
+
+
+
+### Zelftest 5
+
+1. >Beschouw onderstaande netwerk met gegeven kost tussen de de nodes. Veronderstel dat poisoned reverse actief is in het gebruikte distance vector protocol.
+   >
+   >Welk van de onderstaande uitspraken is correct?
+   >
+   >![net](https://ufora.ugent.be/content/enforced/447810-E761031A_2021/dv-net-fig.png?_&d2lSessionVal=rqNicA3XAqIEPda00JxPy4IUR)
+
+   - De kortste afstand naar x die router z doorgeeft aan router w is ONEINDIG.
+   - Wanneer de kost van x naar y oploopt van 4 naar 60, dan gaat zich een count to infinity probleem voordoen.
+   - Wanneer de kost van x naar y oploopt van 4 naar 60, dan is de eerstvolgende kortste afstand die y gaat doorgeven aan w de afstand 9. 
+
+2. > Wanneer een OSPF router zijn linkstate-informatie verstuurt, stuurt het die alleen naar de direct daaraan gekoppelde buren.
+
+   onwaar. over de volledige AS adhv flooding.
+
+3. > Waarom zijn er verschillende intra-AS protocollen in gebruik op het Internet?
+
+   - Ieder intra-AS protocol heeft zijn eigen pro's en con's in termen van schaalbaarheid en convergentiekarakteristieken.
+   - Ieder AS kan zelf beslissen over hoe het de forwardingtabellen van zijn routers invult, en kan dus zelf beslissen welk routingprotocol gebruikt wordt.
+
+   
+
+4. > Wat wordt bij een OSPF routeringsconfiguratie bedoeld met een area en waarom is het concept van een area geïntroduceerd ? Geef aan welke van de onderstaande uitspraken correct zijn.
+
+   - Een area is een verzameling van routers binnen een autonoom systeem.
+   - Link-state informatie wordt enkel gebroadcast binnen een area.
+   - Areas maken dat OSPF kan gebruikt worden voor autonome systemen met meer routers
+   - Binnen een area zijn 1 of meerdere area border routers verantwoordelijk voor de routering van pakketten buiten de area.
+
+   
+
+### Zelftest 6
+
