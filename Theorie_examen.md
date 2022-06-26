@@ -1173,7 +1173,7 @@ Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontv
 
    ![Imgur](https://imgur.com/Xp1EYya.png)
 
-   ![img](https://ufora.ugent.be/content/enforced/447810-E761031A_2021/PastedImage_oilxzukwi6aeb8ls2ovi5kjvzhahraif00157480720.jpg?_&d2lSessionVal=4kTPuwDoYS3HYrS7lCHOpMsoA)
+   ![Imgur](https://imgur.com/L1X5OYK.png)
 
    Antwoord voor invulvraag # 1: **(AP2)**
 
@@ -1201,7 +1201,7 @@ Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontv
    >
    >Welk van de onderstaande uitspraken is correct?
    >
-   >![net](https://ufora.ugent.be/content/enforced/447810-E761031A_2021/dv-net-fig.png?_&d2lSessionVal=rqNicA3XAqIEPda00JxPy4IUR)
+   >![Imgur](https://imgur.com/kZjoWMc.png)
 
    - De kortste afstand naar x die router z doorgeeft aan router w is ONEINDIG.
    - Wanneer de kost van x naar y oploopt van 4 naar 60, dan gaat zich een count to infinity probleem voordoen.
