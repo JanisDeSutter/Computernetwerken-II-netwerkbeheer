@@ -922,11 +922,69 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
 
 
 
-## Extra info en (gedeeltelijke) oplossingen zelftests
+## Extra info (responsie) en (gedeeltelijke) oplossingen zelftests
+
+## Week 1 
+
+### Resp 1
+
+
+
+**Bespreking oefeningen:**
+
+- **dns server** (output commando **dig** (tussenliggende dns servers etc))
+
+  
+
+
+
+**DNS misbruiken** (aanvallen:)
+
+- DDOS (denial of service)
+  -  bv. miljoenen DNS queries versturen naar DNS server.
+  - Hoe? bv DNS amplification. met kleine query een groot response genereren adhv wildcard.
+
+- DNS Hijacking: 
+  - bv goagle.com -> domein niet gevonden. 
+  - NXDOMAIN response vertaalt het naar google.be ahv search engine
+  - malafide personen hosten een website op zulke foute hosts om te advertisen of om data te verzamelen
+  - chrome zorgt er voor dat dit gecontrolleerd wordt. 
+
+
+
+**DNS Server load balancing:**
+
+- meerdere A records
+
+
+
+**Root zone hint file**
+
+- moet aanwezig zijn op elke dns server. moet manueel geconfigureerd worden
+
+
+
+**Zone transfer**
+
+- RR kopiëren naar slaves/secondary DNS servers
+
+
+
+**reverse dns**
+
+- omgekeerde volgorde:
+
+![Imgur](https://imgur.com/5mBY6T1.png)
+
+- niet verplicht. Een DNS server zal dus niet altijd antwoord geven op een reverse DNS query.
+
+
 
 ### Zelftest 1
 
 1. > Hoe kan de command line tool "dig" de trace van tussenliggende DNS servers bekomen: a.d.h.v. een "iteratieve DNS query" of a.d.h.v. een "recursieve DNS query"?
+
+   
 
     **iteratieve DNS query**
 
@@ -964,6 +1022,19 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
 
    - "dig -x <IPadres>" kan gebruikt worden om de domeinnaam te achterhalen
 
+
+
+
+
+## Week 2
+
+### Resp 2
+
+**Bespreking oefeningen:**
+
+- routing table
+- subnets
+
 ### Zelftest 2
 
 
@@ -985,8 +1056,16 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
 
 3. > Welke uitspraken over de traceroute tool zijn correct?
 
+   
+   
    - traceroute verstuurt meerdere pakketten van de bron naar de bestemming om de route te kunnen achterhalen tussen beide.
    - Routers op het pad van bron naar bestemming sturen een ICMP bericht van het type "Destination unreachable" terug naar de bron.
+
+
+
+traceroute mag ICMP gebruiken maar dat kan ook UDP paketten zijn.
+
+ICmP wordt meteen over ICMP wordt meteen via IP verstuurd en dus niet geëncapsuleerd in UDP paketten
 
 
 
@@ -996,6 +1075,22 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
    - ICMP redirect bericht moedigt aan dat een router of host de juiste gateway configureert in zijn routing tabel voor een gegeven bestemming. 
 
 
+
+
+
+## Week 3
+
+### Resp 3
+
+**Bespreking oefeningen:**
+
+- routing table update wanneer ethernet switch plots gebruik maakt van VLAN
+
+- netwerk topology ontwerp
+
+- oefening ontwerp routers vs switches (links, optimale routes, aantal forwarding entries, minimale capaciteit per link node)
+
+  
 
 ### Zelftest 3
 
@@ -1013,9 +1108,11 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
 
 
 
-### Zelftest 4
+## Week 4
 
-**Response College: Wireless Networking**
+### Resp 4 + Zelftest 4
+
+**Respone College: Wireless Networking**
 
 In een bedrade ethernet context kunnen we collision detection doen. In draadloze netwerken niet want dat is fysich onmogelijk. In de plaats maakt men gebruik van collision avoidance.
 
@@ -1193,6 +1290,32 @@ Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontv
 
 
 
+## Week 5
+
+### Resp 5
+
+SNMP en MIB in detail uitgelegd.
+
+
+
+## Week 6/7
+
+### Resp 6/7
+
+Waarom IPV6
+
+IPV6 notatie
+
+
+
+## Week 9
+
+### Resp 9
+
+Uitleg Intra-As protocollen + demo
+
+
+
 
 
 ### Zelftest 5
@@ -1225,7 +1348,73 @@ Als 1 antenne zich net op een "doode spot" bevindt zal hij het signaal niet ontv
    - Areas maken dat OSPF kan gebruikt worden voor autonome systemen met meer routers
    - Binnen een area zijn 1 of meerdere area border routers verantwoordelijk voor de routering van pakketten buiten de area.
 
-   
+
+
+
+
+
+## Week 10
+
+### Resp 10
+
+Uitleg Inter-As protocollen + demo
+
+
 
 ### Zelftest 6
 
+
+
+1. > Geef aan welk van de volgende uitspraken correct is m.b.t. BGP, subnetten en prefixen.
+
+   - Een subnet is een deel van een groter netwerk
+   - Een gegeven prefix kan 1 of meerdere prefixen omvatten.
+
+   
+
+2. > Waartoe kan het AS-PATH attribuut bij BGP advertisements gebruikt worden? Selecteer de correcte uitspraken.
+
+   - Het AS-PATH attribuut kan gebruikt worden door routers om te detecteren of er lussen in het aangekondigde pad naar een subnet te vinden zijn.
+   - Het ontvangen van meerdere AS-PATHs voor een gegeven bestemming laat BGP routers toe om te kiezen welke route ze prefereren en configureren in hun forwarding plane.
+
+   
+
+3. > Welk van de volgende uitspraken met betrekking tot BGP policies zijn correct?
+
+   - Als een AS - of BGP router van een AS - een pad naar een gegeven subnet/prefix adverteert naar zijn buren, dan belooft hij in principe om ontvangen verkeer naar die bestemmingen te routeren.
+   - Een tier 1 ISP heeft de keuze om doorgaand verkeer tussen andere tier-1 ISPs al dan niet toe te laten. Om dit te implementeren kan hij ervoor kiezen om routes naar gegeven bestemmingen niet te adverteren, waardoor verkeer voor die bestemmingen niet door het beschouwde AS kan verlopen.
+   - BGP policies kunnen ervoor zorgen dat de route naar een gegeven bestemming (subnet of prefix) vele malen langer is dan het kortste pad naar die bestemming.
+
+
+
+
+
+## Week 11
+
+### Resp 11
+
+Achtergrondinfo **security** in netwerk.
+
+hackers, phishing, heartbleed, DDOS (distributed denial of service),
+
+**mapping**: netwerk scannen (ip's, ports,..)
+
+**packet sniffing**: afluisteren. hoe tegen gaan? broadcast medium vermijden of alle verbindingen encrypteren
+
+**Ip spooffing**: A verstuurt verkeer en zegt dat het afkomstig is van B. Oplossing: ingress filtering: als source adres niet voorkomt in netwerk:niet doorsturen.
+
+
+
+
+
+## Week 12
+
+### Resp 12
+
+SDN (software defined networking)
+
+Open Flow
+
+Netwerk virtualisatie
+
+Load balancing
