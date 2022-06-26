@@ -699,7 +699,35 @@
 
 
 
+Een wifi acces point (AP) wordt gebruikt als doorgeefluik in een netwerk.
+
+Tussen hosts in zelfde netwerk of tussen lokale host en host op het publieke netwerk.
+
+**Adres 1** is altijd het adres van de **draadloze receiver**. **Adres 2** altijd van de **draadloze transmitter**. Het 3de adres is meestal het toestel dat in de eerste laag 3 hop bereikt moet worden. Het 4de adres wordt slechts in 1 scenario gebruikt.
+
+
+
+4 Scenario's op basis van de toAp en de fromAp velden ([fromAp,toAp]):
+
+- **ad-hoc mode** (0,0):  [Destination] [Source]  [BSSID] (afgesproken BSSID waarde die afgesproken is tussen de communicerende nodes)
+- **infra-to-ap** (1,0): [APA] [Source] [Destination]
+- **infra-from-ap** (0,1):  [Destination] [APA] [Source]
+- **wireless mesh netwerk** (1,1): [Receiving AP] [Transmitting AP] [Destination] [Source]
+
+
+
+
+
 ![Imgur](https://imgur.com/P3EvzSd.png)
+
+
+
+Als de frame toekomt in het AP zal het AP de frame vertalen naar een 802.3 ethernet frame.
+
+| MAC Destination address | MAC Source address |
+| ----------------------- | ------------------ |
+
+
 
 ## Hoofdstuk 8
 
@@ -707,16 +735,22 @@
 
 > Een firewall zal het binnenkomend verkeer filteren.
 >
-> **Stateless packet filter:** Beoordeelt elk pakket. maakt gebruik van opgestelde regels bijvoorbeeld source en destination address en zal op basis daarvan het pakket doorlaten of droppen. Dit gebeurt via een ACL (access control list)
+> **Stateless packet filter:** Beoordeelt elk pakket. maakt gebruik van opgestelde **regels** voor bijvoorbeeld source en destination address en zal op basis daarvan het pakket doorlaten of droppen. Dit gebeurt via een ACL (access control list).
 
 ![img](https://lh3.googleusercontent.com/l2vHu_P0E0AYZyqpVB1n6iKW_TKsajLD5OHxCaOS61wPE36hQhAx0Oflamm_mfPiJ_tBaXm3Uo_awL_UgKM3A4HW1oCACXYe6o-fFVSU4MgbiEFoHjwP1yohR14QAD_385PklWHN-Bq-I1uQgw)
 
 
 
->**Stateful packet filter:** Monitort tcp verbindingen en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag).
+>**Stateful packet filter:** **Monitort tcp verbindingen** en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag). 
+>
+>Als de check connection flag van een bepaalde entry aan staat en de frame voldoet aan de voorwaarden van die entry zal men gaan checken of dat het een reeds opgezette TCP verbinding is of niet. Indien dit niet zo is zal de frame gedropt worden. 
+>
+>Bij een SYN pakket zal men zien dat het een startende TCP verbinding is en zal men het opnemen in de connection state teble. 
+>
+>De verbindingen worden verwijderd uit de connection state table bij een FIN ACK.
 
 ![img](https://lh6.googleusercontent.com/tnKZKhwIlB8stlM5KdAPXLKrerpSlr1MJDvJs2qvjQ_v_FacWjUjbuC3b9OD-u6lpAWtfGiSFzra6AB9pD7GGFSb7T15DcWCkUYCV3Yzoa8VHvb_mUkGyxxK5V7L5IrF046688AbPMRLWAf60w)
-> **Application gateways:** Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer.
+> **Application gateways:** Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer. Ook wel wel proxy genoemd.
 
 
 
@@ -727,77 +761,161 @@
 
 **1. Bespreek de verschillende types adressen bij IPv6 (“Address Type”).**
 
-> **Unicast**: is hetzelfde als bij ipv4 het is een 1-op-1 verbinding
+> **Unicast**: is hetzelfde als bij ipv4 het is een **one-to-one** verbinding
 >
-> **Multicast**: probeert het inefficiënte broadcast te vervangen en is 1-op-many. Je moet je inschrijven op multicast adressen waardoor je erop bereikbaar bent. Zo heb je groepen voor alle routers in het netwerk, …
+> **Multicast**: probeert het inefficiënte broadcast te vervangen en is **one-to-many**. Je moet je inschrijven op multicast adressen waardoor je erop bereikbaar bent. Zo heb je groepen voor alle routers in het netwerk, …
 >
-> **Anycast**: wordt niet heel veel gebruikt omdat het niet zoveel nut heeft maar is 1 op dichtste. Het stuurt nog altijd naar 1 bepaalde groep zoals multicast maar kiest er deze keer 1 uit (meestal de dichtste) dit kan gebruikt worden voor mirror servers. Er is wel een grondig probleem mee, je blijft altijd verbonden ermee, wanneer een dichtere node online komt zal deze niet automatisch verwisselen.
+> **Anycast**: wordt niet heel veel gebruikt omdat het niet zoveel nut heeft maar is **one-to-nearest**. Het stuurt nog altijd naar 1 bepaalde groep zoals multicast maar kiest er deze keer 1 uit (meestal de **dichtste**).
 
 ![img](https://lh6.googleusercontent.com/rupNFRh-JQYFZcNTzjYoSQYB6NRSQCzIZx3YZH2QmnF91CAGZidF-pCksPuEb63GGeokhSjT07KCMzqk7dAKBYbpTT7Z3W1jPJKeO3roSUiG76c_aFwfSgtwuCPXtEmlXIzz1nAOg6tLQMST7g)
 
 **2. Leg uit: fe80::/10, 2000::/3, fc00::/7. Waarvoor worden deze verschillende scopes gebruikt?**
 
-> **Fe80::/10** Deze adressen zijn niet routeerbaar en kan enkel gebruikt worden om te communiceren met andere hosts binnen hetzelfde subnet.
+
+
+> **Fe80::/10**:
 >
-> **2000::/3** Deze adressen zijn routeerbaar en wordt gebruikt om verkeer uit te sturen/te ontvangen buiten het lokaal subnet. (altijd ISP nodig)
+> - **Link Local** adressen.
+> - niet routeerbaar
+> - communicatie binnen LAN
 >
-> **Fc00::/7** is ULA scope, wordt gebruikt wanneer je over een router wil buiten je eigen netwerk maar je geen isp hebt en geen verbinding met internet. 
+> 
+>
+> **2000::/3** 
+>
+> - **Global unicast** adressen.
+> - routeerbaar
+> - communicatie buiten het subnet
+> - ISP nodig
+>
+> 
+>
+> **Fc00::/7** 
+>
+> - **ULA scope**
+> - voor communicatie tussen LAN's wanneer er geen ISP aanwezig is.
+
+
 
 **3. Wat zijn de belangrijkste verschillen tussen een IPv4 en IPv6 header ? Waarom heeft men die verschillen ingevoerd ?**
 
-> **Vaste lengte:** 40bytes met 8 fixed lenght velden tov 20bytes IPV4 header.hierdoor kan er sneller geprocessed worden, er moet niet meer gekeken worden hoe lang het frame eigenlijk is
->
-> **Geen checksum:** niet meer nodig om altijd een checksum te berekenen omdat de velden fixed length zijn.
->
-> **Extra headers en geen fragmentatie:** in de extra headers field (extension header)  worden de nieuwe headers aan geplakt zo moet je niet zoeken naar de gefragmenteerde headers (opzich wel nog mogelijk) maar niet meer gebruikt.
->
-> **Flow label:** hiermee kan je pakketten groeperen (maar wordt eigenlijk niet echt gebruikt)
+
+
+| IPV4                   | IPV6                                         |
+| ---------------------- | -------------------------------------------- |
+| 4 bytes (32bit)        | 16 bytes (128bit)                            |
+| variable header length | fixed header length (8 velden)               |
+| checksum               | geen checksum                                |
+| fragmentatie           | geen fragmentatie (dankzij extension header) |
+
+
 
 **4. Geef een voorbeeld van IPv6 adresresolutie en leg uit wat “solicited-node address” is.**
 
->Een **solicited-node adres** is een **multicast adres** waartoe een aantal adressen toebehoren. Het wordt gevormd door de laatste 24 bits van het IPv6 te nemen en er een prefix ff02::1:ffXX:XXXX/104 van te maken. **Hierdoor kunnen multicast-adressen gestuurd worden zonder alle link-local adressen aangeroepen moeten worden. Zo wordt een broadcast vermeden.** 
->Wanneer host A het link-local adres van host B wilt weten om bijvoorbeeld zijn ARP-table van IPv6 adressen te vervolledigen, moet host A een Neighbor Solicitation (NS) pakket uitsturen. Een NS pakket vraagt aan de ontvanger (host B in dit geval) om zijn link-layer adres in een Neighbor Advertisement (NA) pakket terug te sturen. Om een NS pakket uit te sturen gaat de afzender (host A) zijn link-layer als source adres opgeven en de solicited-node adres al destination opgeven. Host B ontvangt de NS-pakket en stuurt op zijn beurt een unicast NA-pakket terug naar host A met als source zijn link-layer adres en als destination adres, de link-layer adres van host A. Doordat host A een NS-pakket uitgestuurd heeft, kan de ARP-table van host B ook aangevuld worden met de link-layer adres van host A.
+>**Solicited-node address:**
+>
+>- Een **solicited-node adres** is een **multicast adres**  (=multicast group).
+>- Als men een unicast adres configureerd op een node zal deze node zich inschrijven op deze multicast group en op zijn multicast adres.
+>- Dat adres wordt gevormd door de laatste 24 bits van het IPv6 te nemen en er een prefix **ff02::1:ff0:0/104** van te maken.
+>- aangezien er in alle waarschijnlijkheid geen 2 dezelfde nodes de zelfde laatste 24 bits hebben zal deze node alleen zitten in zijn multicast group.
+>- vandaar de tem **pseudo unicast**.
+>- Hierdoor kunnen multicast-adressen gestuurd worden zonder alle andere link-local adressen aangeroepen moeten worden. Zo wordt een **broadcast vermeden.**
+>
+>![Imgur](https://imgur.com/HVUugx4.png)
+>
+>
+>
+>- Op **ethernet niveau** zal er ook een corresponderen multicast adress group aangemaakt worden.
+>
+>- Dit omdat een multicast zowel in de netwerklaag (L3) als in de datalink laag (L2) kan plaatsvinden.
+>
+>  
+>
+>  ![Imgur](https://imgur.com/wQO7F1t.png)
+>
+>
+>
+>**Address resolutie:**
+>
+>1. Host A stuurt een NS (multicast) om het Link Local adres te weten te komen van Host B.
+>2. Host B antwoordt met NA (unicast).
+>3. Nu Host A het link local adres weet van Host B, stuurt Host A een NS naar het solicited node adress van host B
+>4. Host B antwoordt met een NA (unicast) met zijn MAC adres als payload.
 
 ![img](https://lh4.googleusercontent.com/y4UN9dRuewkpjNeCMQUabbsCranAuwVFQgaf8e9HnIk-zjNSqkLbaV6IJf3jQYv8iWECIPXHaSvNcCeZZHJ01TMCHFrbHBXP_FULv1Rzh6xicHLo8omaRJGjRGyYJ5iWPFD2UJ4nBo5YSJjiUw)
 
+
+
 **5. Leg uit: IPv6 DAD.**
 
->DAD = **Duplicate Address Detection**.Wordt gebruikt in een IPv6 netwerk om na te gaan of het gegenereerde adres al niet in gebruik genomen is. Bij IPv6 bestaan er veel mechanismen om de host zelf een IPv6 link local en global adres te laten genereren.
+>DAD = **Duplicate Address Detection**. Wordt gebruikt in een IPv6 netwerk om na te gaan of het gegenereerde adres al niet in gebruik genomen is. 
 >
->Wanneer een host zijn adres heeft aangemaakt stuurt hij een **Neighbor Solicitation (NS)** om te controleren of het adres dat hij net maakte niet al in gebruik is, het adres wordt op **tentative** gezet, dit wil zeggen dat het niet echt gebruikt mag worden. ook in de request headers wordt het source adres leeg gelaten. Als de NS geen antwoord krijgt wil dit zeggen dat het adres niet in gebruik is door iemand en wordt het op **preferred** gezet en kan het dus gebruikt worden.Wanneer er echter wel een antwoord komt zal het adres geweigerd worden en zal er een nieuw gemaakt worden. De echte eigenaar van dit adres moet dit natuurlijk antwoorden naar onze host maar hij kan dit niet doen omdat het adres ervan niet gekend is (omdat het tentative is) dit is in heel het ipv6 de enige uitzondering om het broadcast multicast adres te gebruiken (ff02::1) 
+>- Wanneer een host zijn adres heeft aangemaakt stuurt hij een **Neighbor Solicitation (NS)** om te controleren of het adres dat hij net maakte niet al in gebruik is het adres wordt op **tentative** gezeet.
+>-  Als de NS geen antwoord krijgt wil dit zeggen dat het adres niet in gebruik is door iemand en wordt het op **preferred**.
+>- Wanneer er echter wel een antwoord komt zal het adres geweigerd worden en zal er een nieuw gemaakt worden.
+>- De echte eigenaar van dit adres moet dit natuurlijk antwoorden naar onze host maar hij kan dit niet doen omdat het adres ervan niet gekend is (omdat het tentative is) dit is in heel het ipv6 de enige uitzondering om het **broadcast** multicast adres te gebruiken **(ff02::1**).
+
+
 
 **6. Een IPv6 node met meerdere interfaces (e.g. een router), gebruikt intern steeds een zone index. Leg uit waarom.**
 
-> Wanneer de router bijvoorbeeld een ICMP bericht krijgt van een host die een andere host wilt bereiken via een link local adres, moet de router kunnen achterhalen van welk subnet deze ICMP-aanvraag is uitgestuurd. Bij link local adressen kunnen hosts, verspreid over verschillende subnetten, hetzelfde IP hebben of een IP hebben uit dezelfde range. Door te werken met een zone index kan de router weten vanuit welk subnet die aanvraag uitgestuurd is zodat het de aanvraag kan doorsturen naar de juiste host in het juiste subnet.
+> Wanneer de router bijvoorbeeld een ICMP bericht krijgt van een host die een andere host wilt bereiken via een link local adres, moet de router kunnen achterhalen van welk subnet deze ICMP-aanvraag is uitgestuurd. Bij link local adressen kunnen hosts, verspreid over verschillende subnetten, hetzelfde IP hebben of een IP hebben uit dezelfde range. Door te werken met een **zone index** kan de router weten vanuit **welk subnet** die aanvraag uitgestuurd is zodat het de aanvraag kan doorsturen naar de juiste host in het **juiste subnet**.
+
+
 
 **7. Bespreek de verschillen de autoconfiguratiestappen van IPv6.**
 
->Om nodes in het netwerk automatisch link-local adressen te genereren zijn er 3 stappen mogelijk om een IPv6-netwerk automatisch te configureren. Als eerste stap worden link-local adressen gegenereerd door de hosts.Als tweede stap wordt een router aangesproken die de informatie geeft om als host een IPv6 adres te bekomen. Op basis wat er in stap twee beslist is, kan er in stap 3 beroep worden gedaan op een DHCP-server.
->
+
+
 >**Stap 1**: **Genereer een link-local adres** 
 >
->In deze stap genereren de hosts een link-local adres door het EUI-64 formaat te gebruiken, gebaseerd op hun MAC-adres. Nadien melden deze groepen zich aan in twee multicast groepen, namelijk de “all-nodes” (ff02::01) en de solicited-node, die overeenkomt met hun link-local adres dat juist gegenereerd was. Tenslotte passen de hosts Duplicated Address Detection (DAD) toe om na te gaan dat hun IPv6 niet elders voorkomt. Dit wordt bereikt door Neighbor Solicitation (NS) pakketten uit te sturen. Als de host geen antwoord krijgt, weet de host dat die de enige is met dat IP waardoor de status van het adres van tentative naar preferred wordt geupdate.
+>- Het adres wordt gegenereerd adhv **EUI-64** formaat, gebaseerd op het **MAC** adres.
+>- De node subscribed op de all-nodes” (ff02::01) en de solicited-node multicast groups.
+>- Duplicated Address Detection (DAD)
+>
+>
 >
 >**Stap 2: Stateless autoconfiguration:**
 >
->De host zendt een Router Solicitation (RS) uit naar “all-routers” multicast groep (ff02::2). De router antwoordt hierop met een RA naar hun hosts in het subnet. De RA bevat een lijst met netwerkprefixen en andere parameters zoals de default router lifetime, MTU en Hop Limit. Een RA kan ook in unicastformaat worden gestuurd maar dit wordt zelden gedaan. Met de gegevens die de host krijgt op basis van een RA-pakket, wordt hun IP-adres geconfigureerd. Hierbij wordt opnieuw DAD toegepast om te zien of de host dat IPv6 adres kan gebruiken.
->De routers sturen op periodieke tijdsintervallen Router Advertisement (RA) pakketten door zodat het netwerk automatisch up to date blijft.
->**Stap 3: DHCP-stateless:** 
+>- De host zendt een Router Solicitation (RS) uit naar “**all-routers**” multicast groep (**ff02::2**). 
+>- De router antwoordt hierop met een RA. 
+>- De RA bevat een **lijst met netwerkprefixen** en andere **parameters** zoals de default router lifetime, MTU en Hop Limit. 
+>- Adhv de ontvangen prefix kan men een eigen global address generen. Deze moet opnieuw gecheckt worden adv DAD.
 >
->Voor deze stap moet een stateless autoconfiguration gebeurd zijn. De host contacteert een een DHCP-server voor additionele configuratie zoals het verkrijgen van DNS en NTP. Hiervoor moet de “O”-vlag (Other) worden ingesteld op 1. Het DHCPv6-protocol wordt gebruikt. De default gateway moet verkregen worden via de stateless autoconfiguration. 
+
+
+
+Na SLAAC (stateless address autoconfiguration) kan er in een RA een flag staan dat aanduidt of dat er een **DHCPV6** server gecontacteerd kan worden.
+
+DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
+
+
+
+>**Stap 3: stateless DHCPV6**  (enkel informatie aanbieden) :
 >
->**Stap 3: DHCP-stateful**
+>De host contacteert een een DHCP-server voor additionele configuratie zoals het verkrijgen van **DNS** en NTP. Hiervoor moet de “O”-vlag (Other) worden ingesteld op 1. 
 >
->Deze stap is hetzelfde als bij DHCP-stateless maar hierbij heeft de host nog geen IPv6 adres verkregen. Hiervoor moet de “M”-vlag (Managed) op 1 staan zodat de DHCP-server ook IPv6 adressen kan uitdelen en werkt zoals een DHCPv4-server. Het DHCPv6-protocol wordt gebruikt. 
+>
+>
+>**Stap 4: stateful DHCPV6 **: (deelt ook adressen uit)
+>
+>DHCP server voorziet niet enkel de extra informatie maar kan ook adressen uitdelen. Hiervoor moet de “M”-vlag (Managed) op 1 staan. De DHCPV6 server houdt de adressen ook bij (**stateful**). 
 
 
 
 **8. De overgang van IPv4 van IPv6 wordt georganiseerd in DNS records. Leg uit hoe dit mechanisme werkt.**
 
->Binnen de DNS records wordt een nieuw type geïntroduceerd namelijk het **AAAA** record (I**PV6 resource record**). Ook moet er een extra (IPV6) reverse zone toegevoegd worden om Reverse dns lookup te doen werken voor IPV6. 
+>- Binnen de DNS records wordt een nieuw type geïntroduceerd namelijk het **AAAA** record (I**PV6 resource record**). 
+>
+>![Imgur](https://imgur.com/MM24LM9.png)
+>
+>- Ook moet er een extra (IPV6) **reverse zone** toegevoegd worden om Reverse dns lookup te doen werken voor IPV6. 
+>
+>![Imgur](https://imgur.com/TOtBdQx.png)
+>
 >Bij een overgangsfase wordt een **dual stack resolver** gebruikt die zowel kan omgaan met A en AAAA records.
 >
->Wanneer beide hosts over een IPv6 adres beschikken, wordt er geopteerd om IPv6 te gebruiken in plaats van IPv4. Wanneer een DNS-records worden bevraagd, wordt als eerst de IPv6 record getoond en pas daarna de IPv4. De operating systemen gebruiken standaard het eerste record dat ze binnenkrijgen waardoor er een hogere kans is dat IPv6 gebruikt wordt.
+>Wanneer beide hosts over een IPv6 adres beschikken, wordt er **geopteerd** om **IPv6** te gebruiken in plaats van IPv4. Wanneer een DNS-records worden bevraagd, wordt als eerst de IPv6 record getoond en pas daarna de IPv4. Het OS gebruikt standaard het eerste record dat ze binnenkrijgen waardoor er een hogere kans is dat IPv6 gebruikt wordt.
 >
 
 ![img](https://lh3.googleusercontent.com/RjGKa4m5KUBT7Frizo3e-_R8qquWtCU05dEI5Cf8ZgNP5PNA1ZbZGpN6HWfQE8ejMWGE_7UuND5y_s9R02-KpOdW7BtrbxuO6ihgONFdF037l5e-MaYkE3P9k5_oz20ZmHahL14gnQOnA7hkeg)
