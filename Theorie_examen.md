@@ -231,10 +231,12 @@
 
    > DNS heeft 3 (of eigenlijk 4 als je de lokaal meetelt) soorten servers, **root** servers, **tld** (top level domain) servers en **authoritative** servers. 
    >
-   > De root servers staan vanboven aan de tree, er zijn er meer dan 400 over heel de wereld die beheerd worden door 13 organisaties. deze root servers bevatten de ip adressen van TLD servers. Die top level domain servers beheren top level domeinen zoals .com, .be, .edu, … en bevatten de ip adressen van de authoritative servers. Een authoritative server is een server van het bedrijf zelf die opgezet werd die zelf verwijst naar hun eigen webserver of bestemming. Wanneer je bv naar amazon.com surft zal eerst de root server gecontacteerd worden die verwijst door naar het .com tld, die tld verwijst dan door naar de amazon.com authorative sever die dan zelf zegt ah gebruik dat ip maar.
+   > De root servers staan vanboven aan de tree, er zijn er meer dan 400 over heel de wereld die beheerd worden door 13 organisaties. deze root servers bevatten de ip adressen van TLD servers. Die top level domain servers beheren top level domeinen zoals .com, .be, .edu, … en bevatten de ip adressen van de authoritative servers. 
+   >
+   > Een authoritative server is een server van een organisatie die opgezet werd die zelf verwijst naar hun eigen webserver of bestemming. Wanneer je bv naar amazon.com surft zal eerst de root server gecontacteerd worden die verwijst door naar het .com tld, die tld verwijst dan door naar de amazon.com authorative sever.
 
    ![Imgur](https://imgur.com/jvSxTWk.png)
-
+   
    
    
 2. **Een lokale DNS-server werkt meestal zowel op recursieve als iteratieve wijze. Bespreek**
@@ -438,7 +440,6 @@
 
 
 > - **distance vector routing:** disctance vector = vector met gewichten die aangeven hoe ver een gegeven router zich bevindt (bepaald door bandbreedte).
-> -  Afstand wordt bepaald door Bellman-Ford algoritme.
 > - Iedere router ontvangt disctance vector van buren (bv elke 30 seconden). Ook update hij zijn eigen locale distance vector.
 > - **RIP**
 
@@ -519,13 +520,13 @@
 
 >- **Advertisement**: border routers delen subnetten die ze kunnen bereiken met andere border routers. (via **E-BPG** = external BGP)
 >- **Propagation**:
->  - **IBGP** (internal BGP) wordt gebruikt om reachability informatie te delen met andere routers binnen AS.
->  - **EBGP** tussen border gateways.
->  - policy
+>   - **IBGP** (internal BGP) wordt gebruikt om reachability informatie te delen met andere routers binnen AS.
+>   - **EBGP** tussen border gateways.
+>   - policy
 >- **Route selection**: adhv van volgende eliminatie regels:
->  - policy (bv niet advertisen naar niet-betalende klanten of concurenten)
->  - korste AS pad
->  - next-hop (berekend door intra-as protocol)
+>   - policy (bv niet advertisen naar niet-betalende klanten of concurenten)
+>   - korste AS pad
+>   - next-hop (berekend door intra-as protocol)
 
 
 
@@ -633,11 +634,17 @@
 >
 >Op die manier kunnen verschillende VM's op de zelfde fysieke host met elkaar communiceren alsof ze op het zelfde LAN netwerk zijn aangesloten.
 >
->Om communicatie te verwezenlijken moeten er **virtuele links** voorzien worden. (bv VXLAN tunneling)
+>Om communicatie te verwezenlijken moeten er **virtuele links** voorzien worden. (bv VXLAN tunneling).
+>
+>Dankzij virtualisatie kunnen resources optimaal benut worden. (schaalbaarheid en geen onderbenutting)
 >
 >
 
 >![img](https://lh3.googleusercontent.com/Jti1Kp21Omjb4_g6KvsphnC6vNAW5ydsq1pwceSYSMHN3fuUWmhXCmo_jZohubAmsTEhdTl7yBMejS56EJOCLoa7W7XSnLBDgYL7bWzPcnvNsaKA0KKoT0YT_DtC6gUg0ZbTF_qygafHF0dF5g)
+>
+>![Imgur](https://imgur.com/HE1g7jE.png)
+
+
 
 
 
@@ -645,19 +652,27 @@
 
 **1. Hoe werkt een Ethernet switch.**
 
-> Een Ethernet Switch is een **Layer 2 “plug and play” device**. Het doel van de switch is om het netwerkpakket naar de juiste host te versturen. Hiervoor wordt een **switchtabel** automatisch opgesteld waarbij de switch leert welke hosts bereikt kunnen worden via welke poort. Op die manier wordt het verkeer gericht gestuurd.
+> Een Ethernet Switch is een **Layer 2 “plug and play” device**. Het doel van de switch is om het **pakket** naar de **juiste host** te **versturen**. Hiervoor wordt een **switchtabel** automatisch opgesteld waarbij de switch leert welke hosts bereikt kunnen worden via welke poort. Op die manier wordt het verkeer gericht gestuurd.
 
 **2. Hoe worden de switchtabellen ingevuld ? En hoe worden ze gebruikt ?**
 
 >De switchtabellen worden **opgevuld op basis van het verkeer dat de switch ontvangt**. Als de switchtabel een pakket ontvangt, wordt het **MAC-adres** van de afzender met de respectievelijke **poort** opgeslagen in de tabel (als het de eerste keer is dat deze host een pakket verstuurd).
 >
->Vervolgens kijkt de switch of die een entry van de ontvanger in de tabel heeft. Als dit het geval is, wordt het verkeer enkel naar de poort uitgestuurd. Wanneer de switch niet weet via welke poort de ontvanger bereikbaar is, wordt het pakket uitgestuurd naar alle poorten, behalve die van de afzender = een **broadcast** bericht wordt uitgestuurd.
+>Vervolgens kijkt de switch of die een entry van de ontvanger in de **tabel** heeft. Als dit het geval is, wordt het verkeer enkel naar de poort uitgestuurd. Wanneer de switch niet weet via welke poort de ontvanger bereikbaar is, wordt het pakket uitgestuurd naar **alle poorten**, behalve die van de afzender = een **broadcast** bericht wordt uitgestuurd.
 
 **3. Bespreek STP en geef een voorbeeld.**
 
-> STP = **Spanning Tree ProtocolIs** het mechanisme dat ervoor zorgt dat er geen **loops** tussen de switches ontstaan in het netwerk. Als dit mechanisme er niet zou zijn, dan zou het netwerkverkeer maar blijven **ronddwalen** en toenemen totdat er geen verkeer meer verstuurd kan worden omdat er teveel congestion is .Bij STP worden switches onderverdeeld op basis van een prioriteit. De switch met de hoogste prioriteit is de **rootswitch**. 
+> STP = **Spanning Tree ProtocolIs** het mechanisme dat ervoor zorgt dat er geen **loops** tussen de switches ontstaan in het netwerk. Als dit mechanisme er niet zou zijn, dan zou het netwerkverkeer maar blijven **ronddwalen** en toenemen totdat er geen verkeer meer verstuurd kan worden omdat er teveel congestion is. Bij STP worden switches onderverdeeld op basis van **Switch identifier**. De switch met de hoogste prioriteit (laagste identifier) is de **rootswitch** (wordt links boven geplaatst. 
 >
-> Alle poorten zijn **designated poorten**. De andere switches kijken via welke poort ze de rootswitch het snelst kunnen bereiken. Deze poorten worden **rootpoorten**. Andere poorten die een verbinding met een andere switch hebben, worden **alternate poorten** genoemd. Deze kunnen geblokkeerd worden als er een loop kan ontstaan.
+> Vervolgens worden de **root ports** bepaald: port dat het korste pad heeft naar root switch.
+>
+> **Designated port**: port dat het korste pad heeft naar root port **binnen segment** (segment = link die switchen verbinden)
+>
+> De andere poorten die geen root port of designated port zijn worden geblokkeerd.
+>
+> ![Imgur](https://imgur.com/TlhTsmE.png)
+
+
 
 **4. Wat is een VLAN ? Bespreek de relatie tussen VLANs en subnetten.**
 
@@ -665,8 +680,8 @@
 >
 > **Soorten:**
 >
-> - Port-based: Er wordt een switch port geassigned aan een VLAN
-> - Tag-based: Netwerk traffic wordt getagged. Op deze manier kunnen verschillende VLAN de zelfde switch poort gerbuiken (**trunk**).
+> - **Port-based**: Er wordt een switch port geassigned aan een VLAN
+> - **Tag-based**: Netwerk traffic wordt getagged. Op deze manier kunnen verschillende VLAN de zelfde switch poort gerbuiken (**trunk**).
 
 **5. Geef een aantal voor- en nadelen van switches (versus routers).**
 
