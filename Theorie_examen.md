@@ -693,22 +693,27 @@
 
 **1. Bespreek de voornaamste verschillen tussen draadloze netwerken en bekabelde netwerken (bv. welke problemen kunnen optreden in draadloze netwerken, die je niet hebt in bekabelde netwerken)?**
 
->Bij draadloze netwerken kan **interferentie** optreden wanneer twee of meerdere hosts, channels (frequentie waarop de hosts communiceren met een access point) gebruiken die elkaar overlappen. Dit probleem doet zich niet voor bij bekabelde netwerken.
+>**interferentie**. Bestaat niet in bedrade omgeving. Verschillende toestellen maken gebruik van gedeeld spectrum (overlappende channels). Dit zorgt voor interferentieproblemen.
+>
 >Het draadloos **signaal verzwak**t ook wanneer het door muren moet passeren (hiding terminal problem). Hierdoor ervaart de eindgebruiker een verzwakt signaal waardoor die een trager internetsnelheid ervaart.
+
+
 
 **2. Hoe werkt het IEEE 802.11 MAC protocol?**
 
-![img](https://lh5.googleusercontent.com/w1TRNj1D-YGFyH8uea7cMDom3e6Tbk8cbzohNAlrBzPBnCQUCHNNQQ_LFxD7x-8tr3F73JP61HW5x_Lkajt3xe0z5CEKJr5aPi0u3hCSSHDEPOY7oybh9gJ_3xEipO66zsms8zRVpExM44Jw1A)
 
-> = Carier Sens Multiple Acces/ Collision avoidance.
->
-> Het 802.11 MAC protocol wordt gebruikt om gegevens te **verzenden/ontvangen** tussen een station (vb. een Access Point ) en een draadloos toestel. Aangezien een station met **meerdere toestellen** kan communiceren over een gemeenschappelijk kanaal, moet er een medium-accessprotocol gebruikt worden om **collision** zoveel mogelijk te **vermijden**. 802.11 MAC protocol gebruikt CSMA/CA of Carrier-sense Multiple Access (CSMA) met Collision Avoidance (CA). Het 802.11 MAC protocol heeft echter geen collisiondetectie. Bijgevolg kan het een verzending ook niet stoppen wanneer een collision optreedt. 
+
+>= Carier Sens Multiple Acces/ Collision avoidance.
+
+> Het 802.11 MAC protocol wordt gebruikt om **gegevens** uit te **wisselen** tussen een station (vb. een **Access Point** ) en een **draadloos toestel**. Aangezien een station met **meerdere toestellen** kan communiceren over een gemeenschappelijk kanaal, moet er een medium-accessprotocol gebruikt worden om **collision** zoveel mogelijk te **vermijden**. 
 >
 > - Als channel niet in gebruik is (idle) voor een bepaalde tijd (**DIFS**), dan wordt het verzonden.
 > - Bezet? **random backoff time** telt af zolang idle. wanneer deze is verlopen kan de frame verzonden worden.
 > - **ACK** (bevestiging dat frame is ontvangen) versturen na **SIFS**.
 
 
+
+![img](https://lh5.googleusercontent.com/w1TRNj1D-YGFyH8uea7cMDom3e6Tbk8cbzohNAlrBzPBnCQUCHNNQQ_LFxD7x-8tr3F73JP61HW5x_Lkajt3xe0z5CEKJr5aPi0u3hCSSHDEPOY7oybh9gJ_3xEipO66zsms8zRVpExM44Jw1A)
 
 **3. Bespreek de werking van de adresvelden bij IEEE 802.11 netwerken.**
 
@@ -758,14 +763,14 @@ Als de frame toekomt in het AP zal het AP de frame vertalen naar een 802.3 ether
 
 >**Stateful packet filter:** **Monitort tcp verbindingen** en beslist op basis daarvan het verkeer al dan niet door te laten. Dit gebeurt via een ALC (met check connection flag). 
 >
->Als de check connection flag van een bepaalde entry aan staat en de frame voldoet aan de voorwaarden van die entry zal men gaan checken of dat het een reeds opgezette TCP verbinding is of niet. Indien dit niet zo is zal de frame gedropt worden. 
+>Als de **check connection flag** van een bepaalde entry aan staat en de frame voldoet aan de voorwaarden van die entry zal men gaan checken of dat de frame afkomstig is van een reeds opgezette TCP verbinding is of niet. Indien dit niet zo is zal de frame gedropt worden. 
 >
->Bij een SYN pakket zal men zien dat het een startende TCP verbinding is en zal men het opnemen in de connection state teble. 
+>Bij een **SYN** pakket zal men zien dat het een startende TCP verbinding is en zal men het opnemen in de **connection state table**. 
 >
->De verbindingen worden verwijderd uit de connection state table bij een FIN ACK.
+>De verbindingen worden verwijderd uit de connection state table bij een **FIN ACK** (als TCP verbinding beëindigd is) .
 
 ![img](https://lh6.googleusercontent.com/tnKZKhwIlB8stlM5KdAPXLKrerpSlr1MJDvJs2qvjQ_v_FacWjUjbuC3b9OD-u6lpAWtfGiSFzra6AB9pD7GGFSb7T15DcWCkUYCV3Yzoa8VHvb_mUkGyxxK5V7L5IrF046688AbPMRLWAf60w)
-> **Application gateways:** Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer. Ook wel wel proxy genoemd.
+> **Application gateways:** Filtert op basis van application data. meestal gecombineerd met packet filter. Het is een soort toegelaten “man in the middle” voor web verkeer. Bijvoorbeeld web proxy.
 
 
 
@@ -818,7 +823,6 @@ Als de frame toekomt in het AP zal het AP de frame vertalen naar een 802.3 ether
 
 | IPV4                   | IPV6                                         |
 | ---------------------- | -------------------------------------------- |
-| 4 bytes (32bit)        | 16 bytes (128bit)                            |
 | variable header length | fixed header length (8 velden)               |
 | checksum               | geen checksum                                |
 | fragmentatie           | geen fragmentatie (dankzij extension header) |
@@ -852,10 +856,10 @@ Als de frame toekomt in het AP zal het AP de frame vertalen naar een 802.3 ether
 >
 >**Address resolutie:**
 >
->1. Host A stuurt een NS (multicast) om het Link Local adres te weten te komen van Host B.
->2. Host B antwoordt met NA (unicast).
->3. Nu Host A het link local adres weet van Host B, stuurt Host A een NS naar het solicited node adress van host B
->4. Host B antwoordt met een NA (unicast) met zijn MAC adres als payload.
+>1. Host A stuurt een NS (**multicast**) om het Link Local adres te weten te komen van Host B.
+>2. Host B antwoordt met NA (**unicast**).
+>3. Nu Host A het link local adres weet van Host B, stuurt Host A een NS naar het **solicited node adress** van host B
+>4. Host B antwoordt met een NA (unicast) met zijn **MAC** adres als payload.
 
 ![img](https://lh4.googleusercontent.com/y4UN9dRuewkpjNeCMQUabbsCranAuwVFQgaf8e9HnIk-zjNSqkLbaV6IJf3jQYv8iWECIPXHaSvNcCeZZHJ01TMCHFrbHBXP_FULv1Rzh6xicHLo8omaRJGjRGyYJ5iWPFD2UJ4nBo5YSJjiUw)
 
@@ -865,7 +869,7 @@ Als de frame toekomt in het AP zal het AP de frame vertalen naar een 802.3 ether
 
 >DAD = **Duplicate Address Detection**. Wordt gebruikt in een IPv6 netwerk om na te gaan of het gegenereerde adres al niet in gebruik genomen is. 
 >
->- Wanneer een host zijn adres heeft aangemaakt stuurt hij een **Neighbor Solicitation (NS)** om te controleren of het adres dat hij net maakte niet al in gebruik is het adres wordt op **tentative** gezeet.
+>- Wanneer een host zijn adres heeft aangemaakt stuurt hij een **Neighbor Solicitation (NS)** om te controleren of het adres dat hij net maakte niet al in gebruik is. Het adres wordt op **tentative** gezet.
 >-  Als de NS geen antwoord krijgt wil dit zeggen dat het adres niet in gebruik is door iemand en wordt het op **preferred**.
 >- Wanneer er echter wel een antwoord komt zal het adres geweigerd worden en zal er een nieuw gemaakt worden.
 >- De echte eigenaar van dit adres moet dit natuurlijk antwoorden naar onze host maar hij kan dit niet doen omdat het adres ervan niet gekend is (omdat het tentative is) dit is in heel het ipv6 de enige uitzondering om het **broadcast** multicast adres te gebruiken **(ff02::1**).
@@ -895,7 +899,8 @@ Als de frame toekomt in het AP zal het AP de frame vertalen naar een 802.3 ether
 >- De host zendt een Router Solicitation (RS) uit naar “**all-routers**” multicast groep (**ff02::2**). 
 >- De router antwoordt hierop met een RA. 
 >- De RA bevat een **lijst met netwerkprefixen** en andere **parameters** zoals de default router lifetime, MTU en Hop Limit. 
->- Adhv de ontvangen prefix kan men een eigen global address generen. Deze moet opnieuw gecheckt worden adv DAD.
+>- Adhv de ontvangen prefix kan men een eigen **global address** generen. 
+>- Deze moet opnieuw gecheckt worden adv **DAD**.
 >
 
 
