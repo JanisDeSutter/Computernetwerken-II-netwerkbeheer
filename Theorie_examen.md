@@ -942,6 +942,46 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
 
 
 
+
+
+## Een dag in het leven van een web verzoek
+
+
+
+> 1. **DHCP**
+
+wanneer een pc voor het eerst connecteert met het netwerk zal hij eerst en vooral een IP adres nodig hebben.
+
+![Imgur](https://imgur.com/Qfd3vC4.png)
+
+
+
+> 2. **DNS & ARP**
+
+wanneer de pc een verzoek wilt sturen naar www.google.be zal hij het IP adres nodig hebben van de server. Dit kan hij achterhalen via een **DNS server**. De info over DNS server die hij kan contacteren zat in het DHCP OFFER bericht uit voorgaande stap. 
+
+Om een DNS request te versturen hebben we het **MAC** adres van de DNS server nodig. Deze komen we te weten via **ARP**.
+
+De DNS request wordt in een **UDP** pakket geencapsuleert. 
+
+
+
+> 3. **TCP**
+
+Er wordt een TCP verbinding opgezet tussen de pc en de webserver van google. Dit gebeurt aan de hand van een 3-way handshake. 
+
+
+
+> 4. **HTTP**
+
+Nu kan er HTTP verkeer verwisseld worden tussen de pc en de web server.
+
+
+
+
+
+
+
 ## Extra info (responsie) en (gedeeltelijke) oplossingen zelftests
 
 ## Week 1 
@@ -1438,3 +1478,10 @@ Open Flow
 Netwerk virtualisatie
 
 Load balancing
+
+
+
+
+
+
+
