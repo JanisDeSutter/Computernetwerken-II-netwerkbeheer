@@ -574,7 +574,7 @@
 
 
 
->**SNMP** = Simple Network Message Protocol is het protocol da gesproken wordt tussen de network management station (**NMS**) en de **agent**.
+>**SNMP** = Simple Network Management Protocol is het protocol da gesproken wordt tussen de network management station (**NMS**) en de **agent**.
 >
 >Het maakt gebruik van een connectieloos protocol **UDP**.
 >
