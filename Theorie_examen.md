@@ -277,6 +277,8 @@
 4. **Wat is reverse DNS en hoe werkt het?**
 
 > Doet een **vertaling** van een **IP-adres** naar een **domeinnaam**. Dit kan gedaan worden om bijvoorbeeld na te gaan of de afzender van de mail geen spam is. Hiervoor moet een **PTR-record** worden geconfigureerd. Het maakt ook gebruik van het **in-addr.arpa** domein en schrijft het ip omgekeerd om zo tot het juiste domein te raken.
+>
+> 2.212.193.157.in-addr.arpa. IN PTR tacitus.ugent.be.
 
 
 
@@ -356,7 +358,9 @@
 >
 > Het **voordeel** van NAT is dat het indirect kan fungeren als een **firewall** waarbij bepaalde IP adressen of ranges van IP adressen toegelaten/geweigerd kunnen worden om verbinding te maken met een ander adres-range of internet. Daarnaast kan het lokaal netwerk onafhankelijk veranderen zonder dat de buitenwereld hiervan op de hoogte moet worden gebracht.
 >
-> Het **nadeel** van NAT is dat het enkel werkt op layer 3 (op router-niveau). Verder zijn de entries ook enkel gebaseerd op uitgaand verkeer.
+> Het **nadeel** van NAT is dat het enkel werkt op layer 3 (op router-niveau). 
+>
+> Verder zijn de entries ook enkel gebaseerd op uitgaand verkeer. (NAT traversal problem)
 
 
 
@@ -693,9 +697,16 @@
 
 **1. Bespreek de voornaamste verschillen tussen draadloze netwerken en bekabelde netwerken (bv. welke problemen kunnen optreden in draadloze netwerken, die je niet hebt in bekabelde netwerken)?**
 
->**interferentie**. Bestaat niet in bedrade omgeving. Verschillende toestellen maken gebruik van gedeeld spectrum (overlappende channels). Dit zorgt voor interferentieproblemen.
+>**interferentie:** Verschillende toestellen maken gebruik van **gedeeld spectrum** (overlappende channels). Dit zorgt voor interferentieproblemen.
 >
->Het draadloos **signaal verzwak**t ook wanneer het door muren moet passeren (hiding terminal problem). Hierdoor ervaart de eindgebruiker een verzwakt signaal waardoor die een trager internetsnelheid ervaart.
+>Het draadloos **signaal verzwakt:**
+>
+>-  naarmate de afstand toe neem  (signal attuition) 
+>- door obstakels bv. muur (hidden terminal problem) 
+>
+>**multipath propagation**: voortplaning via **verschillende paden**. Draadloze signalen verspreiden zich doorheen de lucht. Ze kunnen weerkaatst worden door objecten in de omgeving.
+
+
 
 
 
