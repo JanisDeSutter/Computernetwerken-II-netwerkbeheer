@@ -397,10 +397,17 @@
 
 > SDN (Software-Defined Networking)
 >
-> Het is een benadering van **netwerkbeheer** die **automatische**, **dynamische**, **programmatisch** **efficiënte** **netwerkconfiguratie** mogelijk maakt om de **netwerkprestaties** en -**security** te **verbeteren**, waardoor het meer lijkt op cloud computing dan op traditioneel netwerkbeheer.
+> Het is een benadering van **netwerkbeheer** die **automatische**, **dynamische**, **programmatisch** **efficiënte** **netwerkconfiguratie** mogelijk maakt om de **netwerkprestaties** en -**security** te **verbeteren**, waardoor het meer lijkt op **cloud computing** dan op traditioneel netwerkbeheer.
 >
 > Het voorziet abstracties om op basis daarvan routing applicaties te schrijven.
 > **OpenFlow** is de pionier binnen dit concept. Dit is de taal die gesproken wordt tussen de control plane (Netwerk OS) en de data plane (harware);
+>
+> **voordelen:**
+>
+> - Netwerkbeheer **gecentraliseerd** en **geautomatiseerd**, hierdoor kan zeker wat geld uitgespaard worden. 
+> - Verder wordt het ook gemakkelijker om het netwerk te **onderhouden** en wijzigingen kunnen **sneller** worden doorgevoerd. 
+> - Men kan gebruik maken van een **testomgeving** om testconfiguraties uit te proberen. 
+> - Na afwerking kunnen deze **automatisch** uitgerold worden naar productie, en kan men een **roll-back** doen indien er zich fouten voordoen. Dit kan dankzij het **versiebeheersysteem**.
 
 ![img](https://lh5.googleusercontent.com/XBHHpHALovtr2H-ecTyBdoWv2qUnzmTeTpQ6N7vHZWVm8UcTGjFx0lsP3Ainu6XgGru18bGfwW6WErgctdWJHG1jgy3zOskEjN0FpMtm0p4yx9KHmf2EJdWGoakjDXLYeWFaGNeqSolVdy7svQ)
 
@@ -726,6 +733,10 @@
 
 ![img](https://lh5.googleusercontent.com/w1TRNj1D-YGFyH8uea7cMDom3e6Tbk8cbzohNAlrBzPBnCQUCHNNQQ_LFxD7x-8tr3F73JP61HW5x_Lkajt3xe0z5CEKJr5aPi0u3hCSSHDEPOY7oybh9gJ_3xEipO66zsms8zRVpExM44Jw1A)
 
+![Imgur](https://imgur.com/g5oteAW.png)
+
+
+
 **3. Bespreek de werking van de adresvelden bij IEEE 802.11 netwerken.**
 
 
@@ -924,13 +935,13 @@ DHCPV6 kan extra informatie geven zoals de aanwezigheid van een DNS server.
 
 >**Stap 3: stateless DHCPV6**  (enkel informatie aanbieden) :
 >
->De host contacteert een een DHCP-server voor additionele configuratie zoals het verkrijgen van **DNS** en NTP. Hiervoor moet de “O”-vlag (Other) worden ingesteld op 1. 
+>De host contacteert een een DHCP-server voor additionele configuratie zoals het verkrijgen van **DNS** en NTP. Hiervoor moet de **O-vlag** (Other) worden ingesteld op 1. 
 >
 >
 >
 >**Stap 4: stateful DHCPV6 **: (deelt ook adressen uit)
 >
->DHCP server voorziet niet enkel de extra informatie maar kan ook adressen uitdelen. Hiervoor moet de “M”-vlag (Managed) op 1 staan. De DHCPV6 server houdt de adressen ook bij (**stateful**). 
+>DHCP server voorziet niet enkel de extra informatie maar kan ook adressen uitdelen. Hiervoor moet de **M-vlag** (Managed) op 1 staan. De DHCPV6 server houdt de adressen ook bij (**stateful**). 
 
 
 
@@ -1063,7 +1074,7 @@ Nu kan er HTTP verkeer verwisseld worden tussen de pc en de web server.
 
 2. > Wat zijn DNS glue records?
 
-   - DNS glue records zijn DNS RRs zodat verschillende DNS domeinen tot een zone kunnen worden samengevoegd. 
+   - DNS glue records vermijden een circulaire afhankelijkheid bij het proces waarin DNS queries gedelegeerd worden.
    - Een DNS glue record is een A type DNS RR dat het IP adres van een name server geeft voor een lagergelegen domein in de DNS hiërarchie.
    - DNS glue records voor gegeven onderliggend domein A zijn niet nodig wanneer een name server van een onderliggend domein A tot een ander domein B behoort.
 
